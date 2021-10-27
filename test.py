@@ -5,3 +5,7 @@ print("This is not a math class, it is a thinking class")
 print("Today is Wednesday hehehhe!")
 # mandy's changes to the file
 print("gaslight gatekeep girlboss B-)")
+
+
+#Final project ideas:
+#Zoo with animals with print fun facts about them.
