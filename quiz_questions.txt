@@ -1,0 +1,95 @@
+1:True or False aardvark's tongues can be 12 inches long?:True 
+2:True or False aardvarks like eating termites and ants?:True
+3:True or False aardvarks are active during the day?:False
+4:True or False aardvarks give birth to multiple young at once?:False
+5:True or False aardvarks are color-blind?:True 
+6:True or False Burmese Pythons can be up to 23 feet long?:True
+7:True or False Burmese Pythons are omnivores?:False
+8:True or False Burmese Pythons can lay up to 100 eggs?:True
+9:True or False Burmese Pythons can swim?:True
+10:True or False Burmese Pythons live around 30 years?:False
+11:True or False Diamondback Terrapins are endangered?:False
+12:True or False Diamondback Terrapins have diamond-shaped markings on their shells?:True
+13:True or False Diamondback Terrapins have webbed feet?:True
+14:True or False Diamondback Terrapins mate in the winter?:False
+15:True or False adult male Diamondback Terrapins are significantly larger than adult females?:False 
+16:True or False Geckos can shed their tails to escape predators?:True
+17:True or False Geckos are active during the day?:False
+18:True or False Geckos live everywhere except Antarctica?:True
+19:True or False Geckos usually live around 7 years?:False
+20:True or False Geckos make chirping, barking, and clicking sounds?:True
+21:True or False Alligators can be up to 15 feet long?:True
+22:True or False Alligators were once endangered?:True
+23:True or False a group of Alligators is called a congregation?:True
+24:True or False Alligators live in the northwest?:False
+25:True or False Alligators are better at moving on land than in the water?:False
+26:True or False some Lizards can detach their tails?:True
+27:True or False some Lizards can change color?:True
+28:True or False Lizards are only found in forests?:False
+29:True or False the Regal Horned Lizard can squirt blood from its eyes?:True
+30:True or False all Lizards can swim?:False
+31:True or False Owls are nocturnal?:True
+32:True or False Owls whole heads turn instead of just their eyes?:True
+33:True or False Snowy Owls are white?:True
+34:True or False Owls only live in North America?:False
+35:True or False Owls give birth to live young?:False
+36:True or False Penguins can fly:False
+37:True or False Penguins hatch from eggs?:True
+38:True or False Penguins usually live in cold climates?:True
+39:True or False Humboldt Penguins' skin can turn pink?:True
+40:True or False Emperor penguins can travel as far as 620 miles looking for food?:True
+41:True or False Bald Eagles are named because their white heads make them look bald?:False
+42:True or False Bald Eagles have been national symbol of the United States since 1782?:True
+43:True or False Bald Eagles' wingspan can be up to 8 feet?:True
+44:True or False Bald Eagles build nests low on trees?:False
+45:True or False Bald Eagle babies are called eaglets?:True
+46:True or False there are more than 300 Hummingbird species in the world?:True
+47:True or False Hummingbirds help pollination?:True
+48:True or False Hummingbirds can walk?:False
+49:True or False Hummingbirds have poor memory?:False
+50:True or False Hummingbirds have a really fast heart beat?:True
+51:True or False Peacocks are male Indian Peafowl?:True
+52:True or False Peacocks are native to India and Sri Lanka?:True
+53:True or False Peacock's pretty display feathers grow from their tails?:False
+54:True or False female Peacocks are called Peahens?:True
+55:True or False Peacocks only eat meat?:False
+56:True or False Tigers can not swim?:False
+57:True or False Tigers are the largest cat species?:True
+58:True or False Tigers hunt at night?:True
+59:True or False Tiger stripes are the same on every tiger?:False
+60:True or False Tigers share 95.6% of their DNA with domestic cats?:True
+61:True or False Giraffes' scientific name is Giraffa camelopardalis?:True
+62:True or False Giraffes can have 21 inch long tongues?:True
+63:True or False Giraffes are omnivores?:False
+64:True or False Giraffes are born very small?:False
+65:True or False Giraffes live about 25 years?:True
+66:True or False Giant Pandas live in China?:True
+67:True or False Giant Pandas mainly eat bamboo?:True
+68:True or False Giant Pandas are very social?:False
+69:True or False Red Pandas' tails are about as long as their bodies?:True
+70:True or False Red Pandas eat about 20,000 bamboo leaves daily?:True
+71:True or False Sand Tiger Sharks gulp air not to breathe but to float?:True
+72:True or False Sharks have skeletons made of bone?:False
+73:True or False Great White Sharks chew their food?:False
+74:True or False Hammerhead Sharks like eating stingrays?:True
+75:True or False Goblin sharks can extend their jaws 3 inches out of their mouth?:True
+76:True or False Dolphins are fish?:False
+77:True or False groups of Dolphins are called pods?:True
+78:True or False Dolphins use whistles for identification?:True
+79:True or False Dolphins shed their skin every 2 hours?:True
+80:True or False Dolphins are antisocial?:False
+81:True or False Swordfish contain high levels of mercury?:True
+82:True or False Swordfish's scientific name is Xiphias gladius?:True
+83:True or False Swordfish have scales?:False
+84:True or False Swordfish lose their teeth and scales?:True
+85:True or False Swordfish are purple-blue colored?:True
+86:True or False most Pufferfish are toxic?:True
+87:True or False Pufferfish can inflate themselves?:True
+88:True or False Pufferfish are herbivores?:False
+89:True or False Pufferfish toxins have a known cure?:False
+90:True or False Pufferfish can be eaten?:True
+91:True or False there are over 40 Seahorse species?:False
+92:True or False Seahorses have dorsal fins?:True
+93:True or False male Seahorses carry the babies?:True
+93:True or False baby Seahorses are the size of a jellybean?:True
+95:True or False baby Seahorses stay in the father's pouch?:False
