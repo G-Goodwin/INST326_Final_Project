@@ -1,7 +1,6 @@
 
 import random 
-# the Human and User classes here are skeletons so the quiz method of the 
-    # Zookeeper class will can begin to interact. 
+
 class Human: 
     def __init__(self, age):
         self.age = age
@@ -11,7 +10,7 @@ class User(Human):
 
 class Zookeeper(Human): 
     """
-    The Zookeeper class is a subclass of the human class and inherits 
+    The Zookeeper class is a subclass of the Human class and inherits 
         the __init__() method attributes of the Human class. It interacts  
         with the User class and Animal class. 
         The Zookeeper class includes a quiz method where the user can type
@@ -58,10 +57,3 @@ class Zookeeper(Human):
                 answer = input(f"{quest}: ")
                 answer_list.append(answer)
         return answer_list
-
-        #def direction(self, user): 
-            # Ask user where they want to go/what their interests are 
-            # Direct users to different animals/section 
-# run it like this:  
-# h = User(19)
-# z = Zookeeper.quiz(9, user = h,file = "quiz_q.txt")
