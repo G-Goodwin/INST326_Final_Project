@@ -1,9 +1,9 @@
 import random 
 
 class Human: 
-    def __init__(self, age):
+    def __init__(self, age, name):
         self.age = age
-        
+        self.name = name
 class User(Human): 
     pass
 
@@ -26,33 +26,45 @@ class Zookeeper(Human):
             user (User class object): the user. 
             file (str): path to a file with quiz questions and answers. 
         Returns: 
-            answer_list (list): a list of the user's responses the the questions
+            answer_dict (dict): a dictionary with keys corresponding to the 
+                quiz questions asked, and a tuple of the correct answer and 
+                the user's answer as the values. 
+        Side effects: 
+            Prints the number of questions the user correctly answered to the 
+                console.
         """
         questions = {}
-        cor_answers = {}
         asked_questions = []
-        answer_list = []
+        answer_dict = {}
+        score = 0
 
         with open(file, "r", encoding = "UTF-8") as f:   
             for line in f:  
                 line.strip()
                 line = line.split(":") 
-                n,q,a = line[0], line[1].strip(), line[2].strip()
-                questions[n] = q
-                cor_answers[n] = a
-        unasked_questions = set(questions.values()) - set(asked_questions)
+                q,a = line[1].strip(), line[2].strip().upper()
+                questions[q] = a
+        unasked_questions = set(questions.keys()) - set(asked_questions)
         if user.age > 18: 
             for i in range(5): 
                 quest = random.choice(list(unasked_questions))
                 asked_questions.append(quest)
-                unasked_questions = set(questions.values()) - set(asked_questions)
+                unasked_questions = set(questions.keys()) - set(asked_questions)
                 answer = input(f"{quest}: ")
-                answer_list.append(answer)
+                answer_dict[quest] = questions.get(quest), answer.upper()
         else: 
             for i in range(3): 
                 quest = random.choice(list(unasked_questions))
                 asked_questions.append(quest)
-                unasked_questions = set(questions.values()) - set(asked_questions)
+                unasked_questions = set(questions.keys()) - set(asked_questions)
                 answer = input(f"{quest}: ")
-                answer_list.append(answer)
-        return answer_list
+                answer_dict[quest] = questions.get(quest), answer.upper()
+        for cor_ans, user_ans in answer_dict.values(): 
+            if cor_ans == user_ans: 
+                score += 1
+        print(f"{user.name} answered", score, "questions correctly.")
+        #print(answer_dict)
+        return answer_dict
+
+h = User(9, "E")
+z = Zookeeper.quiz(9, h,"quiz_questions.txt")
