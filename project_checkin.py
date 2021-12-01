@@ -186,3 +186,6 @@ class Animal:
                             fact.rstrip("\n")]}
                 self.zoo.append(x)
         print(self.zoo)
+    def action(self, animal):
+        for line in self.zoo:
+            
