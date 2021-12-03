@@ -164,14 +164,14 @@ class Zookeeper(Human):
         return answer_list
 
 class Animal:
-    """This class reads the file of animals in the zoo and organizes
-        them into a zoo dictionary.
+    """This class reads the file of animals in the zoo and organizes them 
+        into a zoo dictionary.
     Attributes:
         filepath(str): a path to a file.
     """
     def __init__(self, filepath):
-        """Opens a file, unpacks it by line and appends it to a list as 
-            a dictionary.
+        """Opens a file, unpacks it by line and appends it to a list as a
+            dictionary.
         Args:
             filepath(str): a path to a file.
         Side Effects:
@@ -182,10 +182,28 @@ class Animal:
             for line in f:
                 line.rstrip("\n")
                 name, type1, eat, sleep, talk, play, fact = line.split(",")
-                x = {name: [type1.lstrip(), eat, sleep, talk, play, 
-                            fact.rstrip("\n")]}
+                x = {"name": name, "type": type1.lstrip(), "eat": eat, \
+                    "sleep":sleep, "talk": talk, "play": play, \
+                        "fact": fact.rstrip("\n")}
                 self.zoo.append(x)
-        print(self.zoo)
+        #print(self.zoo)
+        self.action(self.zoo)
     def action(self, animal):
-        for line in self.zoo:
+        copy_zoo = self.zoo
+        for x in copy_zoo:
+            name = x["name"]
+            type1 = x["type"]
+            eat = x["eat"]
+            sleep = x["sleep"]
+            talk = x["talk"]
+            play = x["play"]
+            print("The name of the animal is " + name)
+            print("This animal is a " + type1)
+            print("This animal eats " + eat)
+            print("This animal sleeps " + sleep + " a day")
+            print("This animal says " + talk)
+            print("This animal plays by " + play)
+            #Turn print statements into return statements (try to mak more 
+            # complicated if possible), maybe read into a new file to create a
+            #fact sheet
             
