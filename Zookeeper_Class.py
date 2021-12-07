@@ -65,6 +65,33 @@ class Zookeeper(Human):
         print(f"{user.name} answered", score, "questions correctly.")
         #print(answer_dict)
         return answer_dict
+    
+    def feed(self, animal_list):
+        animal_options = ["Burmese Python", "Diamondback Terrapin", "Gecko", /
+        "Alligator", "Lizard", "Owl", "Penguin", "Eagle", "Hummingbird", /
+        "Peacock", "Aardvark", "Tiger", "Giraffe", "Panda", "Zebra", "Shark",/
+         "Dolphin", "Swordfish", "Pufferfish", "Seahorse"]
+        print(f"Animals in the Zoo:{animal_options}"")
+        desired_animal = input(f"What animal would you like to see?")
+        desired_animal.upper()
+        # need to fix the animal list pulling info, make names captial
+        if desired_animal in animal_list: 
+            s = randint(0,1)
+            if s == 1: 
+                print(f"Sorry, {desired_animal} is sleeping right now.")
+            else: 
+                if desired_animal in animal_list: 
+                    food = animal_list[desired_animal]
+                    print(f"{desired_animal}, eats {food}. I will feed it now.")    
+            d = randint(0,1)
+            if d == 1: 
+                talk = animal[desired_animal]
+                print(f"Listen to that, {desired_animal} makes {talk} sound.")
+        else: 
+            raise ValueError(f"Sorry, we don't have {desired_animal} at this zoo!")
 
 h = User(9, "E")
 z = Zookeeper.quiz(9, h,"quiz_questions.txt")
+#z = Zookeeper.feed(19,)
+
+
