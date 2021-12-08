@@ -1,5 +1,4 @@
 import random 
-
 class Human:
     """
     Basic Human class, framework for Zookeeper and Human class
@@ -8,7 +7,7 @@ class Human:
         name (str): Human's name
         age (int): Human's age
         isadult (boolean): whether the Human is an "adult" or not
-        pronouns (str): Human's pronouns
+        prounouns (str): Human's pronouns
     """
     def __init__(self):
         """
@@ -27,6 +26,7 @@ class Human:
             self.isadult = False
         
         self.pronouns = input("What are your pronouns? ")
+        
 
 class User(Human):
     """
@@ -96,73 +96,123 @@ class User(Human):
                     if 'complete' in line:
                         print("You have completed your goal from your last \
                             visit! Make sure to set a new goal for this visit.")
-                    
-    def pre_visit(self, filepath):
-        """ Allows the user to set a goal before their actual visit
-        
-        Args:
-            filepath (str): contains a path to a file that will document their
-            goals for this visit
-        
-        Side effects: 
-            Prompts the user to enter their goals for this visit and sets it to
-            goals, as well as writing the new goals into the text file
-        """
-        goals = input("Is there anything specific you would like to do during \
-            this visit? ")
-        with open(filepath, 'w', encoding = 'utf-8') as f:
-            f.write(goals)
+            
+            expr = """(?xm)
+            (?P<category_or_activity>^\w+[^\:]+)
+            \:\s
+            (?P<animals>[^\:].+)"""
+    
+    
+    def navigate_zoo(self):
+        print("r = reptile, b = bird, f = fish, m = mammal")
+        interest = input("What type of animal are you most interested in \
+             seeing? (r/b/f/m) ")
+        if interest == 'r':
+             print("Amphibian display: ")
+        if interest == 'b':
+            print("Bird display: ")
+        if interest == 'f':
+            print("Fish display: ")
+        if interest == 'm':
+            print("Mammal display: ")
+            
 
 class Zookeeper(Human): 
     """
     The Zookeeper class is a subclass of the Human class and inherits 
-        the __init__() method attributes of the Human class. It interacts  
-        with the User class and Animal class. 
-        The Zookeeper class includes a quiz method where the user can type
-        answers to quesetions asked by the Zookeeper. 
-        A seperate method will be made to calculate the user's quiz score. 
+        attributes of the Human class. It interacts with the User class 
+        and Animal class. The Zookeeper class includes a quiz method where 
+        the user can type answers to quesetions asked by the Zookeeper. 
+
     """
     def quiz(self, user, file): 
         """
         Reads a file of quiz questions and answers. Prints a number 
             (determined by the age of the user) of questions about animals in 
             the Zoo for the user to type answers to. Records the questions  
-            asked and the user's answers to for later use. 
+            asked, correct answers, and the user's answers. 
         Args: 
             user (User class object): the user. 
             file (str): path to a file with quiz questions and answers. 
         Returns: 
-            answer_list (list): a list of the user's responses the the questions
+            answer_dict (dict): a dictionary with keys corresponding to the 
+                quiz questions asked, and a tuple of the correct answer and 
+                the user's answer as the values. 
+        Side effects: 
+            Prints the number of questions the user correctly answered to the 
+                console.
         """
         questions = {}
-        cor_answers = {}
         asked_questions = []
-        answer_list = []
+        answer_dict = {}
+        score = 0
 
         with open(file, "r", encoding = "UTF-8") as f:   
             for line in f:  
                 line.strip()
                 line = line.split(":") 
-                n,q,a = line[0], line[1].strip(), line[2].strip()
-                questions[n] = q
-                cor_answers[n] = a
-        unasked_questions = set(questions.values()) - set(asked_questions)
+                q,a = line[1].strip(), line[2].strip().upper()
+                questions[q] = a
+        unasked_questions = set(questions.keys()) - set(asked_questions)
         if user.age > 18: 
             for i in range(5): 
                 quest = random.choice(list(unasked_questions))
                 asked_questions.append(quest)
-                unasked_questions = set(questions.values()) - set(asked_questions)
+                unasked_questions = set(questions.keys()) - set(asked_questions)
                 answer = input(f"{quest}: ")
-                answer_list.append(answer)
+                answer_dict[quest] = questions.get(quest), answer.upper()
         else: 
             for i in range(3): 
                 quest = random.choice(list(unasked_questions))
                 asked_questions.append(quest)
-                unasked_questions = set(questions.values()) - set(asked_questions)
+                unasked_questions = set(questions.keys()) - set(asked_questions)
                 answer = input(f"{quest}: ")
-                answer_list.append(answer)
-        return answer_list
-#hello
+                answer_dict[quest] = questions.get(quest), answer.upper()
+        for cor_ans, user_ans in answer_dict.values(): 
+            if cor_ans == user_ans: 
+                score += 1
+        print(f"{user.name} answered", score, "questions correctly.")
+        print(answer_dict)
+        return score
+    
+    def feed(self, animal_list):
+        animal_info = []
+        animal_options = []
+        animals_visited = []
+        with open(animal_list, "r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip().split(",")
+                n,e,ta = line[0].strip(), line[2].strip(), line[4].strip()
+                animal_options.append(n)
+                a = {n.upper():(e,ta)}
+                animal_info.append(a)
+        animal_options.remove("NAME")
+        options = [a.upper() for a in animal_options]
+        print(f"Animals in the Zoo:{animal_options}")
+        desired_animal = input(f"What animal would you like to see? ")
+        animal = desired_animal.upper()
+        animals_visited.append(animal)
+        #for x in Animal(self.zoo)
+            #if animal == self.zoo["name"]:
+        if animal in options: 
+            s = random.randint(0,9)
+            for a in animal_info:
+                for n in a.keys():
+                    if n == animal: 
+                        for v in a.values(): 
+                            food = v[0]
+                            talk = v[1]
+            if s > 7:
+                print(f"Sorry, the {desired_animal} is sleeping right now.")
+            else: 
+                print(f"{desired_animal}'s eat {food}. I will feed it now.")
+            d = random.randint(0,9)     
+            if d < 8 and s < 7: 
+                print(f"Listen to that, {desired_animal} makes {talk} sound.")
+        else: 
+            raise ValueError(f"Sorry, we don't have {desired_animal}'s' at this zoo!")
+        return animals_visited
+
 class Animal:
     """This class reads the file of animals in the zoo and organizes them 
         into a zoo dictionary.
@@ -206,4 +256,28 @@ class Animal:
             #Turn print statements into return statements (try to mak more 
             # complicated if possible), maybe read into a new file to create a
             #fact sheet
-            
+def main():  
+    pass
+
+def parse_args(arglist): 
+    """ 
+    Parse command-line arguments.
+    
+    Expects # mandatory arguments:
+        filepath: a path to a tab-delimited file containing book data 
+            (title, author, and call number). 
+    
+    Args:
+        arglist (list of str): arguments from the command line.
+    
+    Returns:
+        namespace: the parsed arguments, as a namespace.
+    """
+    parser = ArgumentParser()
+    parser.add_argument("filepath", help="path to tab-delimited text file with"
+                        " book data (title, author, and call number)") 
+    return parser.parse_args(arglist)
+
+if __name__ == "__main__":
+    args = parse_args(sys.argv[1:])
+    main(args.filepath)

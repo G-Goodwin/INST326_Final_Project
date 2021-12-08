@@ -10,18 +10,17 @@ class User(Human):
 class Zookeeper(Human): 
     """
     The Zookeeper class is a subclass of the Human class and inherits 
-        the __init__() method attributes of the Human class. It interacts  
-        with the User class and Animal class. 
-        The Zookeeper class includes a quiz method where the user can type
-        answers to quesetions asked by the Zookeeper. 
-        A seperate method will be made to calculate the user's quiz score. 
+        attributes of the Human class. It interacts with the User class 
+        and Animal class. The Zookeeper class includes a quiz method where 
+        the user can type answers to quesetions asked by the Zookeeper. 
+
     """
     def quiz(self, user, file): 
         """
         Reads a file of quiz questions and answers. Prints a number 
             (determined by the age of the user) of questions about animals in 
             the Zoo for the user to type answers to. Records the questions  
-            asked and the user's answers to for later use. 
+            asked, correct answers, and the user's answers. 
         Args: 
             user (User class object): the user. 
             file (str): path to a file with quiz questions and answers. 
@@ -63,35 +62,52 @@ class Zookeeper(Human):
             if cor_ans == user_ans: 
                 score += 1
         print(f"{user.name} answered", score, "questions correctly.")
-        #print(answer_dict)
-        return answer_dict
+        print(answer_dict)
+        return score
     
     def feed(self, animal_list):
-        animal_options = ["Burmese Python", "Diamondback Terrapin", "Gecko", /
-        "Alligator", "Lizard", "Owl", "Penguin", "Eagle", "Hummingbird", /
-        "Peacock", "Aardvark", "Tiger", "Giraffe", "Panda", "Zebra", "Shark",/
-         "Dolphin", "Swordfish", "Pufferfish", "Seahorse"]
-        print(f"Animals in the Zoo:{animal_options}"")
-        desired_animal = input(f"What animal would you like to see?")
-        desired_animal.upper()
-        # need to fix the animal list pulling info, make names captial
-        if desired_animal in animal_list: 
-            s = randint(0,1)
-            if s == 1: 
-                print(f"Sorry, {desired_animal} is sleeping right now.")
+        animal_info = []
+        animal_options = []
+        animals_visited = []
+        with open(animal_list, "r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip().split(",")
+                n,e,ta = line[0].strip(), line[2].strip(), line[4].strip()
+                animal_options.append(n)
+                a = {n.upper():(e,ta)}
+                animal_info.append(a)
+        animal_options.remove("NAME")
+        options = [a.upper() for a in animal_options]
+        print(f"Animals in the Zoo:{animal_options}")
+        desired_animal = input(f"What animal would you like to see? ")
+        animal = desired_animal.upper()
+        animals_visited.append(animal)
+        #for x in Animal(self.zoo)
+            #if animal == self.zoo["name"]:
+        if animal in options: 
+            s = random.randint(0,9)
+            for a in animal_info:
+                for n in a.keys():
+                    if n == animal: 
+                        for v in a.values(): 
+                            food = v[0]
+                            talk = v[1]
+            if s > 7:
+                print(f"Sorry, the {desired_animal} is sleeping right now.")
             else: 
-                if desired_animal in animal_list: 
-                    food = animal_list[desired_animal]
-                    print(f"{desired_animal}, eats {food}. I will feed it now.")    
-            d = randint(0,1)
-            if d == 1: 
-                talk = animal[desired_animal]
+                print(f"{desired_animal}'s eat {food}. I will feed it now.")
+            d = random.randint(0,9)     
+            if d < 8 and s < 7: 
                 print(f"Listen to that, {desired_animal} makes {talk} sound.")
         else: 
-            raise ValueError(f"Sorry, we don't have {desired_animal} at this zoo!")
+            raise ValueError(f"Sorry, we don't have {desired_animal}'s' at this zoo!")
+        return animals_visited
 
-h = User(9, "E")
-z = Zookeeper.quiz(9, h,"quiz_questions.txt")
-#z = Zookeeper.feed(19,)
 
+#h = User(19, "33")
+#h2 = User(19, "B")
+#z = Zookeeper.quiz(9, h,"quiz_questions.txt")
+#z2 = Zookeeper.quiz(9, h2,"quiz_questions.txt")
+h = User(17, "F")
+z = Zookeeper.feed("D", "zoo.txt")
 
