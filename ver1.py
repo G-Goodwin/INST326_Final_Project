@@ -1,4 +1,7 @@
 import random 
+import sys
+from argparse import ArgumentParser
+
 class Human:
     """
     Basic Human class, framework for Zookeeper and Human class
@@ -17,7 +20,9 @@ class Human:
         self.name = input("What is your name? ")
         self.age = int(input("How old are you? "))
         
-        if self.age is not type(int) or self.age <= 0:
+        # if self.age is not type(int) or self.age <= 0:
+        #     raise TypeError("Please enter a valid age.")
+        if self.age <= 0:
             raise TypeError("Please enter a valid age.")
         
         if self.age >= 18:
@@ -102,7 +107,6 @@ class User(Human):
             \:\s
             (?P<animals>[^\:].+)"""
     
-    
     def navigate_zoo(self):
         print("r = reptile, b = bird, f = fish, m = mammal")
         interest = input("What type of animal are you most interested in \
@@ -116,6 +120,47 @@ class User(Human):
         if interest == 'm':
             print("Mammal display: ")
             
+class Animal:
+    """This class reads the file of animals in the zoo and organizes them 
+        into a zoo dictionary.
+    Attributes:
+        filepath(str): a path to a file.
+    """
+    def __init__(self, filepath):
+        """Opens a file, unpacks it by line and appends it to a list as a
+            dictionary.
+        Args:
+            filepath(str): a path to a file.
+        Side Effects:
+            opens and modifies a file.
+        """
+        self.zoo = []
+        with open(filepath, "r", encoding="utf-8") as f:
+            for line in f:
+                line.rstrip("\n")
+                name, type1, eat, sleep, talk, play, fact = line.split(",")
+                x = {"name": name, "type": type1.lstrip(), "eat": eat, \
+                    "sleep":sleep, "talk": talk, "play": play, \
+                        "fact": fact.rstrip("\n")}
+                self.zoo.append(x)
+        #self.action(self.zoo)
+        
+
+    def action(self, animal):
+        copy_zoo = self.zoo
+        for x in copy_zoo:
+            name = x["name"]
+            type1 = x["type"]
+            eat = x["eat"]
+            sleep = x["sleep"]
+            talk = x["talk"]
+            play = x["play"]
+            print("The name of the animal is " + name)
+            print("This animal is a " + type1)
+            print("This animal eats " + eat)
+            print("This animal sleeps " + sleep + " a day")
+            print("This animal says " + talk)
+            print("This animal plays by " + play)
 
 class Zookeeper(Human): 
     """
@@ -142,142 +187,145 @@ class Zookeeper(Human):
             Prints the number of questions the user correctly answered to the 
                 console.
         """
-        questions = {}
-        asked_questions = []
-        answer_dict = {}
-        score = 0
+        self.questions = {}
+        self.asked_questions = []
+        self.answer_dict = {}
+        self.score = 0
 
         with open(file, "r", encoding = "UTF-8") as f:   
             for line in f:  
                 line.strip()
                 line = line.split(":") 
                 q,a = line[1].strip(), line[2].strip().upper()
-                questions[q] = a
-        unasked_questions = set(questions.keys()) - set(asked_questions)
-        if user.age > 18: 
+                self.questions[q] = a
+        self.unasked_questions = set(self.questions.keys()) - set(self.asked_questions)
+        if user.isadult == True: 
             for i in range(5): 
-                quest = random.choice(list(unasked_questions))
-                asked_questions.append(quest)
-                unasked_questions = set(questions.keys()) - set(asked_questions)
-                answer = input(f"{quest}: ")
-                answer_dict[quest] = questions.get(quest), answer.upper()
+                self.quest = random.choice(list(self.unasked_questions))
+                self.asked_questions.append(self.quest)
+                self.unasked_questions = set(self.questions.keys()) - set(self.asked_questions)
+                self.answer = input(f"{self.quest}: ")
+                self.answer_dict[quest] = self.questions.get(self.quest), self.answer.upper()
         else: 
             for i in range(3): 
-                quest = random.choice(list(unasked_questions))
-                asked_questions.append(quest)
-                unasked_questions = set(questions.keys()) - set(asked_questions)
-                answer = input(f"{quest}: ")
-                answer_dict[quest] = questions.get(quest), answer.upper()
-        for cor_ans, user_ans in answer_dict.values(): 
+                self.quest = random.choice(list(self.unasked_questions))
+                self.asked_questions.append(self.quest)
+                self.unasked_questions = set(self.questions.keys()) - set(self.asked_questions)
+                self.answer = input(f"{self.quest}: ")
+                self.answer_dict[self.quest] = self.questions.get(self.quest), self.answer.upper()
+        for cor_ans, user_ans in self.answer_dict.values(): 
             if cor_ans == user_ans: 
-                score += 1
-        print(f"{user.name} answered", score, "questions correctly.")
-        print(answer_dict)
-        return score
-    
-    def feed(self, animal_list):
-        animal_info = []
-        animal_options = []
-        animals_visited = []
-        with open(animal_list, "r", encoding="utf-8") as f:
-            for line in f:
-                line = line.strip().split(",")
-                n,e,ta = line[0].strip(), line[2].strip(), line[4].strip()
-                animal_options.append(n)
-                a = {n.upper():(e,ta)}
-                animal_info.append(a)
-        animal_options.remove("NAME")
-        options = [a.upper() for a in animal_options]
-        print(f"Animals in the Zoo:{animal_options}")
-        desired_animal = input(f"What animal would you like to see? ")
-        animal = desired_animal.upper()
-        animals_visited.append(animal)
-        #for x in Animal(self.zoo)
-            #if animal == self.zoo["name"]:
-        if animal in options: 
+                self.score += 1
+        print(f"{user.name} answered", self.score, "quiz questions correctly.")
+        print(f"The quiz questions and answers are displayed 'Question : (Correct Answer, User Answer)'.",self.answer_dict)
+        return self.score
+
+    # def feed(self, filepath):
+    def feed(self, animal_info):
+        self.animal_options = []
+        self.animals_visited = []
+        #self.animal_list = Animal(filepath)
+        self.animal_list = animal_info
+        for animal in self.animal_list: 
+            self.animal_options.append(self.animal_list["name"])
+            if animal == self.animal_list["name"]: 
+                self.food = self.animal_list["food"]
+                self.sleep = self.animal_list["talk"]
+        self.options = [a.upper() for a in self.animal_options]
+        print(f"Animals in the Zoo:{self.animal_options}")
+        self.desired_animal = input(f"What animal would you like to see? ")
+        self.animal = self.desired_animal.upper()
+        self.animals_visited.append(self.animal)
+        if self.animal in self.options: 
             s = random.randint(0,9)
-            for a in animal_info:
-                for n in a.keys():
-                    if n == animal: 
-                        for v in a.values(): 
-                            food = v[0]
-                            talk = v[1]
             if s > 7:
-                print(f"Sorry, the {desired_animal} is sleeping right now.")
+                print(f"Sorry, the {self.desired_animal} is sleeping right now.")
             else: 
-                print(f"{desired_animal}'s eat {food}. I will feed it now.")
+                print(f"{self.desired_animal}'s eat {self.food}. I will feed it now.")
             d = random.randint(0,9)     
             if d < 8 and s < 7: 
-                print(f"Listen to that, {desired_animal} makes {talk} sound.")
+                print(f"Listen to that, {self.desired_animal} makes {self.talk} sound.")
         else: 
-            raise ValueError(f"Sorry, we don't have {desired_animal}'s' at this zoo!")
-        return animals_visited
+            raise ValueError(f"Sorry, we don't have {self.desired_animal}'s' at this zoo!")
+        return self.animals_visited
 
-class Animal:
-    """This class reads the file of animals in the zoo and organizes them 
-        into a zoo dictionary.
-    Attributes:
-        filepath(str): a path to a file.
-    """
-    def __init__(self, filepath):
-        """Opens a file, unpacks it by line and appends it to a list as a
-            dictionary.
-        Args:
-            filepath(str): a path to a file.
-        Side Effects:
-            opens and modifies a file.
-        """
-        self.zoo = []
-        with open(filepath, "r", encoding="utf-8") as f:
-            for line in f:
-                line.rstrip("\n")
-                name, type1, eat, sleep, talk, play, fact = line.split(",")
-                x = {"name": name, "type": type1.lstrip(), "eat": eat, \
-                    "sleep":sleep, "talk": talk, "play": play, \
-                        "fact": fact.rstrip("\n")}
-                self.zoo.append(x)
-        #print(self.zoo)
-        self.action(self.zoo)
-    def action(self, animal):
-        copy_zoo = self.zoo
-        for x in copy_zoo:
-            name = x["name"]
-            type1 = x["type"]
-            eat = x["eat"]
-            sleep = x["sleep"]
-            talk = x["talk"]
-            play = x["play"]
-            print("The name of the animal is " + name)
-            print("This animal is a " + type1)
-            print("This animal eats " + eat)
-            print("This animal sleeps " + sleep + " a day")
-            print("This animal says " + talk)
-            print("This animal plays by " + play)
-            #Turn print statements into return statements (try to mak more 
-            # complicated if possible), maybe read into a new file to create a
-            #fact sheet
-def main():  
-    pass
+a = Animal("animals.txt")
+# cant return self.zoo from Animal class and cant iterate over Animal object
+s = Zookeeper()
+h = User()
+z2 = Zookeeper.feed(s, a)
+# z = Zookeeper.quiz(s,h, "quiz_questions.txt")
 
-def parse_args(arglist): 
-    """ 
-    Parse command-line arguments.
-    
-    Expects # mandatory arguments:
-        filepath: a path to a tab-delimited file containing book data 
-            (title, author, and call number). 
-    
-    Args:
-        arglist (list of str): arguments from the command line.
-    
-    Returns:
-        namespace: the parsed arguments, as a namespace.
-    """
-    parser = ArgumentParser()
-    parser.add_argument("filepath", help="path to tab-delimited text file with"
-                        " book data (title, author, and call number)") 
-    return parser.parse_args(arglist)
 
-if __name__ == "__main__":
-    args = parse_args(sys.argv[1:])
-    main(args.filepath)
+            # for a in self.animal_info:
+            #     for n in a.keys():
+            #         if n == animal: 
+            #             for v in a.values(): 
+            #                 food = v[0]
+            #                 talk = v[1]
+
+    # Original idea: 
+    # def feed(self, animal_list):
+    #     animal_info = []
+    #     animal_options = []
+    #     animals_visited = []
+    #     with open(animal_list, "r", encoding="utf-8") as f:
+    #         for line in f:
+    #             line = line.strip().split(",")
+    #             n,e,ta = line[0].strip(), line[2].strip(), line[4].strip()
+    #             animal_options.append(n)
+    #             a = {n.upper():(e,ta)}
+    #             animal_info.append(a)
+    #     animal_options.remove("NAME")
+    #     options = [a.upper() for a in animal_options]
+    #     print(f"Animals in the Zoo:{animal_options}")
+    #     desired_animal = input(f"What animal would you like to see? ")
+    #     animal = desired_animal.upper()
+    #     animals_visited.append(animal)
+    #     #for x in Animal(self.zoo)
+    #         #if animal == self.zoo["name"]:
+    #     if animal in options: 
+    #         s = random.randint(0,9)
+    #         for a in animal_info:
+    #             for n in a.keys():
+    #                 if n == animal: 
+    #                     for v in a.values(): 
+    #                         food = v[0]
+    #                         talk = v[1]
+    #         if s > 7:
+    #             print(f"Sorry, the {desired_animal} is sleeping right now.")
+    #         else: 
+    #             print(f"{desired_animal}'s eat {food}. I will feed it now.")
+    #         d = random.randint(0,9)     
+    #         if d < 8 and s < 7: 
+    #             print(f"Listen to that, {desired_animal} makes {talk} sound.")
+    #     else: 
+    #         raise ValueError(f"Sorry, we don't have {desired_animal}'s' at this zoo!")
+    #     return animals_visited
+
+
+# def main():  
+
+
+# def parse_args(arglist): 
+#     """ 
+#     Parse command-line arguments.
+    
+#     Expects # mandatory arguments:
+#         filepath: a path to a tab-delimited file containing book data 
+#             (title, author, and call number). 
+    
+#     Args:
+#         arglist (list of str): arguments from the command line.
+    
+#     Returns:
+#         namespace: the parsed arguments, as a namespace.
+#     """
+#     parser = ArgumentParser()
+#     parser.add_argument("filepath", help="path to tab-delimited text file with"
+#                         " book data (title, author, and call number)") 
+#     return parser.parse_args(arglist)
+
+# if __name__ == "__main__":
+#     args = parse_args(sys.argv[1:])
+#     main(args.filepath)

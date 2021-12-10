@@ -61,8 +61,8 @@ class Zookeeper(Human):
         for cor_ans, user_ans in answer_dict.values(): 
             if cor_ans == user_ans: 
                 score += 1
-        print(f"{user.name} answered", score, "questions correctly.")
-        print(answer_dict)
+        print(f"{user.name} answered", score, "quiz questions correctly.")
+        print(f"The quiz questions and answers are displayed 'Question : (Correct Answer, User Answer)'.",answer_dict)
         return score
     
     def feed(self, animal_list):
@@ -104,10 +104,11 @@ class Zookeeper(Human):
         return animals_visited
 
 
-#h = User(19, "33")
+h = User(19, "33")
+
+z = Zookeeper.quiz(9, h,"quiz_questions.txt")
 #h2 = User(19, "B")
-#z = Zookeeper.quiz(9, h,"quiz_questions.txt")
 #z2 = Zookeeper.quiz(9, h2,"quiz_questions.txt")
-h = User(17, "F")
-z = Zookeeper.feed("D", "zoo.txt")
+# h = User(17, "F")
+# z = Zookeeper.feed("D", "zoo.txt")
 
