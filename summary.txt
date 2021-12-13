@@ -1,6 +1,1 @@
-visited 6 animals
-fed a giraffe
-saw 2 performances
-answered 4 questions correctly
 
-goal for current visit:
