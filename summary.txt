@@ -1,13 +1,1 @@
-Visit 1:
-
-saw: Diamondback Terrapin, Aardvark, Penguin, Tiger, Peacock, Shark
-fed: Peacock, Penguin
-pet: Peacock, Aardvark
-
-Visit 2:
-
-saw: Dolphin, Owl, Tiger, Swordfish, Lizard
-fed: Owl, Lizard
-pet: Owl, Lizard
-
 
