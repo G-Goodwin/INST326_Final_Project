@@ -1,6 +1,6 @@
 import random 
 import sys
-from argparse import ArgumentParser
+#from argparse import ArgumentParser
 
 class Human:
     """
@@ -72,14 +72,14 @@ class User(Human):
         else:
             raise TypeError("Enter 'y' for yes and 'n' for no.")
         
-        with open(filepath, 'r', encoding = 'utf-8') as f:
+        with open(filepath, 'a+', encoding = 'utf-8') as f:
             for line in f:
                 line = line.strip()
                 if line == self.username:
                     self.username = input("That username already exists, please\
                                          enter a different one: ")
                 else:
-                    f.write(self.username)
+                    f.write(f"{self.username}")
                     
     def summary(self, filepath):
         """ Provides the user with a summary of their previous visit if they
@@ -109,8 +109,7 @@ class User(Human):
     
     def navigate_zoo(self):
         print("r = reptile, b = bird, f = fish, m = mammal")
-        interest = input("What type of animal are you most interested in \
-             seeing? (r/b/f/m) ")
+        interest = input("What type of animal are you most interested in seeing? (r/b/f/m) ")
         if interest == 'r':
              print("Amphibian display: ")
         if interest == 'b':
@@ -140,9 +139,12 @@ class Animal:
                 #line.rstrip("\n")
                 line.strip()
                 name, type1, eat, sleep, talk, play, fact = line.split(",")
-                x = {"name": name, "type": type1.lstrip(), "eat": eat, \
+                x = {"name": name, "type": type1.strip(), "eat": eat, \
                     "sleep":sleep, "talk": talk, "play": play, \
-                        "fact": fact.rstrip("\n")}
+                        "fact": fact.strip()}
+                # x = {"name": name, "type": type1.lstrip(), "eat": eat, \
+                #     "sleep":sleep, "talk": talk, "play": play, \
+                #         "fact": fact.rstrip("\n")}
                 self.zoo.append(x)
         #self.action(self.zoo)
 # made new animal file - took out the commas in one of the fun facts because it was messing up the method
@@ -200,26 +202,31 @@ class Zookeeper(Animal,Human):
                 q,a = line[1].strip(), line[2].strip().upper()
                 self.questions[q] = a
         self.unasked_questions = set(self.questions.keys()) - set(self.asked_questions)
-        if user.isadult == True: 
-            for i in range(5): 
-                self.quest = random.choice(list(self.unasked_questions))
-                self.asked_questions.append(self.quest)
-                self.unasked_questions = set(self.questions.keys()) - set(self.asked_questions)
-                self.answer = input(f"{self.quest}: ")
-                self.answer_dict[quest] = self.questions.get(self.quest), self.answer.upper()
-        else: 
-            for i in range(3): 
-                self.quest = random.choice(list(self.unasked_questions))
-                self.asked_questions.append(self.quest)
-                self.unasked_questions = set(self.questions.keys()) - set(self.asked_questions)
-                self.answer = input(f"{self.quest}: ")
-                self.answer_dict[self.quest] = self.questions.get(self.quest), self.answer.upper()
-        for cor_ans, user_ans in self.answer_dict.values(): 
-            if cor_ans == user_ans: 
-                self.score += 1
-        print(f"{user.name} answered", self.score, "quiz questions correctly.")
-        print(f"The quiz questions and answers are displayed 'Question : (Correct Answer, User Answer)'.",self.answer_dict)
-        return self.score
+        take = input(f"{user.name} do you want to take a true/false quiz now? (Yes/No) ")
+        if take == "Yes" or take == "yes": 
+            if user.isadult == True: 
+                for i in range(5): 
+                    self.quest = random.choice(list(self.unasked_questions))
+                    self.asked_questions.append(self.quest)
+                    self.unasked_questions = set(self.questions.keys()) - set(self.asked_questions)
+                    self.answer = input(f"{self.quest}: ")
+                    self.answer_dict[quest] = self.questions.get(self.quest), self.answer.upper()
+            else: 
+                for i in range(3): 
+                    self.quest = random.choice(list(self.unasked_questions))
+                    self.asked_questions.append(self.quest)
+                    self.unasked_questions = set(self.questions.keys()) - set(self.asked_questions)
+                    self.answer = input(f"{self.quest}: ")
+                    self.answer_dict[self.quest] = self.questions.get(self.quest), self.answer.upper()
+            for cor_ans, user_ans in self.answer_dict.values(): 
+                if cor_ans == user_ans: 
+                    self.score += 1
+            print(f"{user.name} answered", self.score, "quiz questions correctly.")
+            print(f"The quiz questions and answers are displayed 'Question : (Correct Answer, User Answer)'.",self.answer_dict)
+            return self.score
+        if take == "No" or take == "no": 
+            return ("Maybe next time!")
+        
 
     def feed(self):
         self.animal_options = []
@@ -281,13 +288,15 @@ if __name__ == "__main__":
     a = Animal("animals.txt")
     z = Zookeeper("animals.txt")
     u = User()
-    u.account()
+    u.account("userName.txt")
     #data viz stuff 
-    a.action()
+    # need an animal
+    #a.action() 
     u.navigate_zoo()
-    z.feed(u)
-    z.quiz("quiz_questions.txt")
-    u.summary()
+    # duplicate kind of animal display printed text between these two methods 
+    z.feed()
+    z.quiz(u, "quiz_questions.txt")
+    u.summary("sum.txt")
 
 # User - make an account
 # Data visualization
