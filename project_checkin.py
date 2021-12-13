@@ -165,12 +165,14 @@ class Zookeeper(Human):
         return answer_list
 
 class Animals:
-    """This class reads the file of animals in the zoo and organizes them into a zoo dictionary.
+    """This class reads the file of animals in the zoo and organizes them 
+            into a zoo dictionary.
     Attributes:
         filepath(str): a path to a file.
     """
     def __init__(self, filepath):
-        """Opens a file, unpacks it by line and appends it to a list as a dictionary.
+        """Opens a file, unpacks it by line and appends it to a list as a
+            dictionary.
         Args:
             filepath(str): a path to a file.
         Side Effects:
@@ -181,14 +183,22 @@ class Animals:
             for line in f:
                 line.rstrip("\n")
                 name, type1, eat, sleep, talk, play, fact = line.split(",")
-                x = {"name": name.strip(" "), "type": type1.strip(" "), "eat": eat.strip(" "), \
-                    "sleep":sleep.strip(" "), "talk": talk.strip(" "), "play": play.strip(" "), \
+                x = {"name": name.strip(" "), "type": type1.strip(" "), \
+                    "eat": eat.strip(" "), "sleep":sleep.strip(" "), \
+                        "talk": talk.strip(" "), "play": play.strip(" "), \
                         "fact": fact.rstrip("\n")}
                 self.zoo.append(x)
             self.zoo = self.zoo[1:]
         # print(self.zoo)
         # self.action(self.zoo)
     def action(self, fle):
+        """Creates a copy of the dictionary and writes random interaction 
+                statements to a list, then writes statements to a file.
+        Args:
+            fle(str): a path to a file
+        Side Effects:
+            Opens and writes to a file.
+        """
         copy_zoo = self.zoo
         selection_list = []
         selection_list2 = []
@@ -202,8 +212,10 @@ class Animals:
                 talk = x["talk"]
                 play = x["play"]
                 selection_list.append("The " + name + " says " + talk + " to ")
-                selection_list.append("The " + name + " is able to " + play + " with ")
-                selection_list.append("The " + name + " sleeps " + sleep + " and ")
+                selection_list.append("The " + name + " is able to " \
+                    + play + " with ")
+                selection_list.append("The " + name + " sleeps " + sleep +\
+                    " and ")
                 selection_list.append("The " + name + " eats " + eat + " and ")
                 selection_list.append("The " + name + " is a " + type1+ " and ")
             for x in copy_zoo:
@@ -218,4 +230,5 @@ class Animals:
                 selection_list2.append("the " + name + " that sleeps " + sleep)
                 selection_list2.append("the " + name + " eats " + eat)
                 selection_list2.append("the " + name + " that is a " + type1)
-            f.writelines(random.choice(selection_list)+random.choice(selection_list2)+"."+"\n")
+            f.writelines(random.choice(selection_list)+ \
+                random.choice(selection_list2)+"."+"\n")
