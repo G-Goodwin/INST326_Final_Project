@@ -313,24 +313,6 @@ class Zookeeper(Animal,Human): # Written by: G Goodwin
                 " at this zoo!")
         return self.all_visited
 
-# def parse_args(arglist): 
-#     """ 
-#     Parse command-line arguments.
-    
-#     Expects # mandatory arguments:
-#         filepath: a path to a tab-delimited file containing book data 
-#             (title, author, and call number). 
-    
-#     Args:
-#         arglist (list of str): arguments from the command line.
-    
-#     Returns:
-#         namespace: the parsed arguments, as a namespace.
-#     """
-#     parser = ArgumentParser()
-#     parser.add_argument("filepath", help="path to tab-delimited text file with"
-#                         " book data (title, author, and call number)") 
-#     return parser.parse_args(arglist)
 
 if __name__ == "__main__": # Written by: G
     a = Animal("animals.txt")
@@ -340,8 +322,6 @@ if __name__ == "__main__": # Written by: G
     #data viz stuff here
     a.action() 
     u.navigate_zoo()
-    z.feed(#needs a specific animal)
+    z.feed(#needs a specific animal from nav zoo)
     z.quiz(u, "quiz_questions.txt")
     u.summary("sum.txt")
-#     args = parse_args(sys.argv[1:])
-#     main(args.filepath)
