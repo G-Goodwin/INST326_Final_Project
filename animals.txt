@@ -1,0 +1,21 @@
+NAME, TYPE, EAT, SLEEP, TALK, PLAY, FACT
+Burmese Python, Reptile, mice, 16 hours, hissssssss, sunbathe, Females can lay clutches of up to 100 eggs.
+Diamondback Terrapin, Reptile, tuna, 1-10 hours, cluck, swim, The only turtle in the world that live in brackish water.
+Gecko, Reptile, grasshoppers, 12 hours, click, climb trees and jump off, Their toes help them stick to any surface except Teflon.
+Alligator, Reptile, insects, 17 hours, grrrrrrrrrr, run, They can't survive in salt water.
+Lizard, Reptile, leafy green, 9-16 hours, hissssssss, play dead, They can detach their tails.
+Owl, Birds, voles, 12 hours, hoo hoo, fly, They are active at night.
+Penguin, Birds, krill, 20 hours, honk, sliding on ice, They evolved to fly underwater.
+Eagle, Birds, water fowl, 10-12 hours, screech, tumble, There are over 60 species of Eagles.
+Hummingbird, Birds, flower nectar, 8-16 hours, chirp, chase, The only bird that can fly backwards.
+Peacock, Birds, berries, 5-6 hours, squawk, dance, Only males have the fancy feathers.
+Aardvark, Mammals, termites, 12 hours, grunt, walk, The name Aardvark means "earth pig".
+Tiger, Mammals, wild pigs, 15 hours, roar, swim, Tigers are nocturnal animals
+Giraffe, Mammals, acacia, 5 hours, hum, run, Giraffes are the tallest mammals on Earth.
+Panda, Mammals, bamboo, 10 hours, huff, climb, A panda year is equivalent to three human years.
+Zebra, Mammals, grass, 7 hours, neigh, kick, Zebras can run up to 65km per hour.
+Shark, Fish, smaller fish, N/A, blub, hunt, Sharks do not have bones
+Dolphin, Fish, jellyfish, 8 hours, click, chase, Dolphins have two stomachs.
+Swordfish, Fish, squid, 8-12 hours, blub, fight, They have few predators including humans large sharks and killer whales.
+Pufferfish, Fish, clams, 8-12 hours, blub, float, One pufferfish has enough toxins to kill more than 30 people.
+Seahorse, Fish, coral, 8-12 hours, blub, swim, Seahorses prefer to swim in pairs with their tails linked together.
