@@ -78,39 +78,15 @@ class User(Human):
                                          enter a different one: ")
                 else:
                     f.write(self.username)
-                    
-    def summary(filepath):
-        """ Provides the user with a summary of their previous visit if they
-        are an existing user
-        
-        Args:
-            filepath (str): contains a path to a file with the summary of the
-            user's previous experiences at the zoo
-            
-        Side effects:
-            Prints the user's previous experiences at the zoo onto the console
-        """
-        print("During your previous visit, you... ")
-        with open(filepath, 'r', encoding = 'utf-8') as f:
-            for line in f:
-                line = line.strip()
-                expr = """(?xm)
-                (?P<category_or_activity>^\w+)
-                \:\s
-                \n?
-                (?P<animals>[^\:].+)"""
-                match = re.search(expr, line)
-                if match:
-                    activity = match.group("category_or_activity")
-                    animal = match.group("animals")
-                    print(f"{activity}: {animal}")
+
     
-   def navigate_zoo(filepath, filepath2):
+   def navigate_zoo(self, filepath, summary):
         reptiles = []
         birds = []
         fish = []
         mammals = []
         animals_seen = []
+        
         with open(filepath, 'r', encoding = 'utf-8') as f:
             for line in f:
                 line = line.strip().split(', ')
@@ -124,11 +100,13 @@ class User(Human):
                     mammals.append(animal)
                 if type == 'Fish':
                     fish.append(animal)
-        with open(filepath2, 'r', encoding = 'utf-8') as f2:
-            for line in f2:
-                line = line.strip.split(', ')
-                animal2 = line[0]
-                interaction = line[1]
+                    
+#         with open(filepath2, 'r', encoding = 'utf-8') as f2:
+#             for line in f2:
+#                 line = line.strip.split(', ')
+#                 animal2 = line[0]
+#                 interaction = line[1]
+
         ans = "y"
         while ans == "y":            
             print("r = reptile, b = bird, f = fish, m = mammal")
@@ -170,10 +148,36 @@ class User(Human):
                     raise ValueError("Please select an animal in our display!")
                 ans = input("Would you like to visit another animal (y/n)? ")
         print("Thank you for visiting our zoo! Have a nice day!")
+        with open(summary, 'w', encoding = 'utf-8') as f3:
+            f3.write(f"saw: {', '.join(animals_seen)}")
+           
+        
+    def summary(self, filepath):
+        """ Provides the user with a summary of their previous visit if they
+        are an existing user
+        
+        Args:
+            filepath (str): contains a path to a file with the summary of the
+            user's previous experiences at the zoo
             
-        
+        Side effects:
+            Prints the user's previous experiences at the zoo onto the console
+        """
+        print("During your visit, you... ")
+        with open(filepath, 'r', encoding = 'utf-8') as f:
+            for line in f:
+                line = line.strip()
+                expr = """(?xm)
+                (?P<category_or_activity>^\w+)
+                \:\s
+                \n?
+                (?P<animals>[^\:].+)"""
+                match = re.search(expr, line)
+                if match:
+                    activity = match.group("category_or_activity")
+                    animal = match.group("animals")
+                    print(f"{activity} these animals: {animal}")
+        print("We hope you enjoyed your visit and we hope to see you soon!")
+            
     
-                    
-        
-    
- 
+            
