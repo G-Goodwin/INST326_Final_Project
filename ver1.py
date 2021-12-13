@@ -137,14 +137,15 @@ class Animal:
         self.zoo = []
         with open(filepath, "r", encoding="utf-8") as f:
             for line in f:
-                line.rstrip("\n")
+                #line.rstrip("\n")
+                line.strip()
                 name, type1, eat, sleep, talk, play, fact = line.split(",")
                 x = {"name": name, "type": type1.lstrip(), "eat": eat, \
                     "sleep":sleep, "talk": talk, "play": play, \
                         "fact": fact.rstrip("\n")}
                 self.zoo.append(x)
         #self.action(self.zoo)
-        
+# made new animal file - took out the commas in one of the fun facts because it was messing up the method
 
     def action(self, animal):
         copy_zoo = self.zoo
@@ -162,7 +163,7 @@ class Animal:
             print("This animal says " + talk)
             print("This animal plays by " + play)
 
-class Zookeeper(Human): 
+class Zookeeper(Animal,Human): 
     """
     The Zookeeper class is a subclass of the Human class and inherits 
         attributes of the Human class. It interacts with the User class 
@@ -220,17 +221,13 @@ class Zookeeper(Human):
         print(f"The quiz questions and answers are displayed 'Question : (Correct Answer, User Answer)'.",self.answer_dict)
         return self.score
 
-    # def feed(self, filepath):
-    def feed(self, animal_info):
+    def feed(self):
         self.animal_options = []
         self.animals_visited = []
-        #self.animal_list = Animal(filepath)
-        self.animal_list = animal_info
-        for animal in self.animal_list: 
-            self.animal_options.append(self.animal_list["name"])
-            if animal == self.animal_list["name"]: 
-                self.food = self.animal_list["food"]
-                self.sleep = self.animal_list["talk"]
+        self.animal_list = self.zoo.copy()
+        for a in self.animal_list: 
+            self.animal_options.append(a["name"])
+        self.animal_options.remove("NAME")
         self.options = [a.upper() for a in self.animal_options]
         print(f"Animals in the Zoo:{self.animal_options}")
         self.desired_animal = input(f"What animal would you like to see? ")
@@ -238,73 +235,27 @@ class Zookeeper(Human):
         self.animals_visited.append(self.animal)
         if self.animal in self.options: 
             s = random.randint(0,9)
-            if s > 7:
+            for n in self.animal_list: 
+                if self.animal == n["name"].upper(): 
+                    self.food = n["eat"]
+                    self.talk = n["talk"]
+            if s > 8:
                 print(f"Sorry, the {self.desired_animal} is sleeping right now.")
             else: 
                 print(f"{self.desired_animal}'s eat {self.food}. I will feed it now.")
-            d = random.randint(0,9)     
-            if d < 8 and s < 7: 
-                print(f"Listen to that, {self.desired_animal} makes {self.talk} sound.")
+                print(f"Listen to that, {self.desired_animal}'s' make {self.talk} sound.")
         else: 
             raise ValueError(f"Sorry, we don't have {self.desired_animal}'s' at this zoo!")
         return self.animals_visited
 
-a = Animal("animals.txt")
-# cant return self.zoo from Animal class and cant iterate over Animal object
-s = Zookeeper()
-h = User()
-z2 = Zookeeper.feed(s, a)
+
 # z = Zookeeper.quiz(s,h, "quiz_questions.txt")
 
-
-            # for a in self.animal_info:
-            #     for n in a.keys():
-            #         if n == animal: 
-            #             for v in a.values(): 
-            #                 food = v[0]
-            #                 talk = v[1]
-
-    # Original idea: 
-    # def feed(self, animal_list):
-    #     animal_info = []
-    #     animal_options = []
-    #     animals_visited = []
-    #     with open(animal_list, "r", encoding="utf-8") as f:
-    #         for line in f:
-    #             line = line.strip().split(",")
-    #             n,e,ta = line[0].strip(), line[2].strip(), line[4].strip()
-    #             animal_options.append(n)
-    #             a = {n.upper():(e,ta)}
-    #             animal_info.append(a)
-    #     animal_options.remove("NAME")
-    #     options = [a.upper() for a in animal_options]
-    #     print(f"Animals in the Zoo:{animal_options}")
-    #     desired_animal = input(f"What animal would you like to see? ")
-    #     animal = desired_animal.upper()
-    #     animals_visited.append(animal)
-    #     #for x in Animal(self.zoo)
-    #         #if animal == self.zoo["name"]:
-    #     if animal in options: 
-    #         s = random.randint(0,9)
-    #         for a in animal_info:
-    #             for n in a.keys():
-    #                 if n == animal: 
-    #                     for v in a.values(): 
-    #                         food = v[0]
-    #                         talk = v[1]
-    #         if s > 7:
-    #             print(f"Sorry, the {desired_animal} is sleeping right now.")
-    #         else: 
-    #             print(f"{desired_animal}'s eat {food}. I will feed it now.")
-    #         d = random.randint(0,9)     
-    #         if d < 8 and s < 7: 
-    #             print(f"Listen to that, {desired_animal} makes {talk} sound.")
-    #     else: 
-    #         raise ValueError(f"Sorry, we don't have {desired_animal}'s' at this zoo!")
-    #     return animals_visited
-
-
 # def main():  
+#     a = Animal("animals.txt")
+#     z = Zookeeper("animals.txt")
+#     u = User()
+    #z = Zookeeper.feed(s)
 
 
 # def parse_args(arglist): 
@@ -326,6 +277,26 @@ z2 = Zookeeper.feed(s, a)
 #                         " book data (title, author, and call number)") 
 #     return parser.parse_args(arglist)
 
-# if __name__ == "__main__":
+if __name__ == "__main__":
+    a = Animal("animals.txt")
+    z = Zookeeper("animals.txt")
+    u = User()
+    u.account()
+    #data viz stuff 
+    a.action()
+    u.navigate_zoo()
+    z.feed(u)
+    z.quiz("quiz_questions.txt")
+    u.summary()
+
+# User - make an account
+# Data visualization
+# Summary
+# Animal innit
+# Animal interaction
+# Navigate
+# Feed
+# quiz
+
 #     args = parse_args(sys.argv[1:])
 #     main(args.filepath)
