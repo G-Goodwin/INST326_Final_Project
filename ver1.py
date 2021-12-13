@@ -76,8 +76,8 @@ class User(Human): # Written by: Leilani and Mandy
             for line in f:
                 line = line.strip()
                 if line == self.username:
-                    self.username = input("That username already exists, please\
-                                         enter a different one: ")
+                    self.username = input("That username already exists, "\
+                        "please nter a different one: ")
                 else:
                     f.write(self.username)
                     
@@ -99,8 +99,8 @@ class User(Human): # Written by: Leilani and Mandy
                     line = line.strip()
                     print(line)
                     if 'complete' in line:
-                        print("You have completed your goal from your last \
-                            visit! Make sure to set a new goal for this visit.")
+                        print("You have completed your goal from your last " \
+                        "visit! Make sure to set a new goal for this visit.")
             
             expr = """(?xm)
             (?P<category_or_activity>^\w+[^\:]+)
@@ -109,7 +109,8 @@ class User(Human): # Written by: Leilani and Mandy
     
     def navigate_zoo(self):
         print("r = reptile, b = bird, f = fish, m = mammal")
-        interest = input("What type of animal are you most interested in seeing? (r/b/f/m) ")
+        interest = input("What type of animal are you most interested in " \
+        "seeing? (r/b/f/m) ")
         if interest == 'r':
              print("Amphibian display: ")
         if interest == 'b':
@@ -167,28 +168,54 @@ class Animal: # Written by: Hanna
 
 class Zookeeper(Animal,Human): # Written by: G Goodwin
     """
-    The Zookeeper class is a subclass of the Human class and inherits 
-        attributes of the Human class. It interacts with the User class 
-        and Animal class. The Zookeeper class includes a quiz method where 
-        the user can type answers to quesetions asked by the Zookeeper. 
+    The Zookeeper class is a subclass of the Human class and Animal Class. 
+        It inherits attributes of the Human class (name, age) and the Animal 
+        Class (zoo). The quiz method allows users to type answers to quesetions 
+        asked by the Zookeeper. The feed method simulates the Zookeeper feeding
+        the animal of the user's choice.
+    Attributes:
+        (see Human Class and Animal Class)
 
+        questions (dictionary): A dictionary of questions from a file and the
+            correct answer.
+        asked_questions (list): A list of the questions the user answers.
+        answer_dict (dictionary): A dictionary with the question asked as the
+            key and a tuple of values. The first is the correct answer 
+            and the second is the user's answer.
+        score (int): The number of questions the user answered correctly.
+        unasked_questions (set): A set of questions that have not been asked.
+        quest (str): A question printed to the console for the user to answer. 
+        answer (str): The user's answer to the question.  
+
+        animal_options (list): A list of all of the animals in the Zoo. 
+        animals_visited (list): A list of all of the animals fed by the 
+            Zookeeper. The user has "visited" any animal the Zookeeper 
+            interacts with. 
+        animal_list (list of dictionaries): A list of dictionaries containing 
+            information about animals in the Zoo. 
+        options (list): A list of the capitalized names of all of the animals 
+            in the Zoo.
+        desired_animal (str): The animal the user wants to see.
+        animal (str): Capitalized name of the animal the user wants to see. 
+        food (str): The food the animal eats from the file of animal 
+            information.
+        talk (str): The sound the animal makes from the file of animal 
+            information. 
     """
     def quiz(self, user, file): 
         """
-        Reads a file of quiz questions and answers. Prints a number 
-            (determined by the age of the user) of questions about animals in 
-            the Zoo for the user to type answers to. Records the questions  
-            asked, correct answers, and the user's answers. 
+        Reads a file of quiz questions and answers. Prints a number (determined 
+            by wheter or not the user is an adult) of questions about animals 
+            in the Zoo for the user to type answers to. Creates a dictionary of 
+            questions asked, correct answers, and the user's answers. 
         Args: 
             user (User class object): the user. 
             file (str): path to a file with quiz questions and answers. 
         Returns: 
-            answer_dict (dict): a dictionary with keys corresponding to the 
-                quiz questions asked, and a tuple of the correct answer and 
-                the user's answer as the values. 
+            score (int): The number of questions the user answered correctly. 
         Side effects: 
-            Prints the number of questions the user correctly answered to the 
-                console.
+            Prints the questions for the user to answer, question and answer 
+                dictionary, and user's final quiz score to the console. 
         """
         self.questions = {}
         self.asked_questions = []
@@ -201,30 +228,46 @@ class Zookeeper(Animal,Human): # Written by: G Goodwin
                 line = line.split(":") 
                 q,a = line[1].strip(), line[2].strip().upper()
                 self.questions[q] = a
-        self.unasked_questions = set(self.questions.keys()) - set(self.asked_questions)
+        self.unasked_questions = (set(self.questions.keys()) - 
+            set(self.asked_questions))
         print(f"{user.name}, you will now take a true/false quiz!")
         if user.isadult == True: 
             for i in range(5): 
                 self.quest = random.choice(list(self.unasked_questions))
                 self.asked_questions.append(self.quest)
-                self.unasked_questions = set(self.questions.keys()) - set(self.asked_questions)
+                self.unasked_questions = (set(self.questions.keys()) - 
+                    set(self.asked_questions))
                 self.answer = input(f"{self.quest}: ")
-                self.answer_dict[quest] = self.questions.get(self.quest), self.answer.upper()
+                self.answer_dict[self.quest] = (self.questions.get(self.quest), 
+                    self.answer.upper())
         else: 
             for i in range(3): 
                 self.quest = random.choice(list(self.unasked_questions))
                 self.asked_questions.append(self.quest)
-                self.unasked_questions = set(self.questions.keys()) - set(self.asked_questions)
+                self.unasked_questions = (set(self.questions.keys()) - 
+                    set(self.asked_questions))
                 self.answer = input(f"{self.quest}: ")
-                self.answer_dict[self.quest] = self.questions.get(self.quest), self.answer.upper()
+                self.answer_dict[self.quest] = (self.questions.get(self.quest), 
+                    self.answer.upper())
         for cor_ans, user_ans in self.answer_dict.values(): 
             if cor_ans == user_ans: 
                 self.score += 1
         print(f"{user.name} answered", self.score, "quiz questions correctly.")
-        print(f"The quiz questions and answers are displayed 'Question : (Correct Answer, User Answer)'.",self.answer_dict)
+        print(f"The quiz questions and answers are displayed" \
+            " 'Question : (Correct Answer, User Answer)'. Your results are:"\
+                ,self.answer_dict)
         return self.score
 
     def feed(self):
+        """
+        Creates a list of animals the user has the option to feed. Simulates a 
+            Zookeeper feeding an animal of the user's choice. 
+        Returns:
+            animals_visited (list): A list of all of the animals the user 
+                visited. Equivalent to the animals the Zookeeper fed. 
+        Raises: 
+            ValueError: The animal the user wants to visit is not in the Zoo.
+        """
         self.animal_options = []
         self.animals_visited = []
         self.animal_list = self.zoo.copy()
@@ -243,12 +286,16 @@ class Zookeeper(Animal,Human): # Written by: G Goodwin
                     self.food = n["eat"]
                     self.talk = n["talk"]
             if s > 8:
-                print(f"Sorry, the {self.desired_animal} is sleeping right now.")
+                print(f"Sorry, the {self.desired_animal} is sleeping" \
+                " right now.")
             else: 
-                print(f"{self.desired_animal}'s eat {self.food}. I will feed it now.")
-                print(f"Listen to that, {self.desired_animal}'s' make {self.talk} sound.")
+                print(f"{self.desired_animal}'s eat {self.food}. I will feed" \
+                    " it now.")
+                print(f"Listen to that, {self.desired_animal}'s make" \
+                    f" {self.talk} sound.")
         else: 
-            raise ValueError(f"Sorry, we don't have {self.desired_animal}'s' at this zoo!")
+            raise ValueError(f"Sorry, we don't have {self.desired_animal}'s" \
+                " at this zoo!")
         return self.animals_visited
 
 # def parse_args(arglist): 
@@ -275,7 +322,7 @@ if __name__ == "__main__": # Written by: G
     z = Zookeeper("animals.txt")
     u = User()
     u.account("userName.txt")
-    #data viz stuff 
+    #data viz stuff here
     # need an animal for next method
     #a.action() 
     u.navigate_zoo()
