@@ -1,20 +1,20 @@
-Shark, The Shark is a Fish and the Owl that sleeps 12 hours.
-Penguin, The Penguin eats krill and the Swordfish that sleeps 8-12 hours.
-Shark, The Shark is able to hunt with the Panda says huff.
-Alligator, The Alligator is able to run with the Panda eats bamboo.
-Swordfish, The Swordfish is a Fish and the Gecko eats grasshoppers.
-Seahorse, The Seahorse eats coral and the Peacock that sleeps 5-6 hours.
-Panda, The Panda sleeps 10 hours and the Dolphin that is a Fish.
-Peacock, The Peacock sleeps 5-6 hours and the Eagle that plays tumble.
-Swordfish, The Swordfish says blub to the Burmese Python says hissssssss.
-Panda, The Panda is able to climb with the Seahorse that is a Fish.
-Hummingbird, The Hummingbird eats flower nectar and the Penguin eats krill.
-Hummingbird, The Hummingbird says chirp to the Swordfish says blub.
-Burmese Python, The Burmese Python sleeps 16 hours and the Eagle that is a Birds.
-Diamondback Terrapin, The Diamondback Terrapin says cluck to the Alligator eats insects.
-Eagle, The Eagle eats water fowl and the Giraffe that sleeps 5 hours.
-Lizard, The Lizard sleeps 9-16 hours and the Gecko that plays climb trees and jump off.
-Shark, The Shark sleeps N/A and the Hummingbird eats flower nectar.
-Swordfish, The Swordfish eats squid and the Giraffe that sleeps 5 hours.
-Eagle, The Eagle says screech to the Diamondback Terrapin that sleeps 1-10 hours.
-Owl, The Owl sleeps 12 hours and the Zebra eats grass.
+Eagle, The Eagle is able to tumble with the Dolphin eats jellyfish.
+Zebra, The Zebra eats grass and the Dolphin eats jellyfish.
+Eagle, The Eagle sleeps 10-12 hours and the Giraffe that is a Mammals.
+Seahorse, The Seahorse sleeps 8-12 hours and the Hummingbird that is a Birds.
+Owl, The Owl is a Birds and the Alligator that is a Reptile.
+Tiger, The Tiger says roar to the Dolphin that sleeps 8 hours.
+Tiger, The Tiger sleeps 15 hours and the Panda says huff.
+Lizard, The Lizard is able to play dead with the Dolphin that sleeps 8 hours.
+Lizard, The Lizard eats leafy green and the Gecko that is a Reptile.
+Lizard, The Lizard says hissssssss to the Hummingbird that is a Birds.
+Zebra, The Zebra says neigh to the Alligator says grrrrrrrrrr.
+Panda, The Panda says huff to the Diamondback Terrapin that is a Reptile.
+Hummingbird, The Hummingbird is a Birds and the Panda that sleeps 10 hours.
+Hummingbird, The Hummingbird eats flower nectar and the Lizard that is a Reptile.
+Panda, The Panda is a Mammals and the Swordfish eats squid.
+Aardvark, The Aardvark is able to walk with the Diamondback Terrapin that plays swim.
+Tiger, The Tiger is able to swim with the Shark that plays hunt.
+Diamondback Terrapin, The Diamondback Terrapin sleeps 1-10 hours and the Owl that is a Birds.
+Alligator, The Alligator is able to run with the Peacock that is a Birds.
+Swordfish, The Swordfish is a Fish and the Hummingbird says chirp.

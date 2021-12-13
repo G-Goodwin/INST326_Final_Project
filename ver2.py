@@ -128,43 +128,137 @@ class User(Human):
         return df.plot.bar(x = "Animal Name", y = "Hours of Sleep")        
                     
     def summary(self, filepath):
-        """ Provides the user with a summary of their previous visit if they
-        are an existing user
+        """ Provides the user with a summary of their visit
         
         Args:
             filepath (str): contains a path to a file with the summary of the
-            user's previous experiences at the zoo
+            user's experiences at the zoo
             
         Side effects:
-            Prints the user's previous experiences at the zoo onto the console
+            Prints the user's experiences at the zoo onto the console
         """
-        if self.prev_user == True:
-            print("During your previous visit, you... ")
-            with open(filepath, 'r', encoding = 'utf-8') as f:
-                for line in f:
-                    line = line.strip()
-                    print(line)
-                    if 'complete' in line:
-                        print("You have completed your goal from your last " \
-                        "visit! Make sure to set a new goal for this visit.")
+        print("During your visit, you... ")
+        with open(filepath, 'r', encoding = 'utf-8') as f:
+            for line in f:
+                line = line.strip()
+                expr = """(?xm)
+                (?P<category_or_activity>^\w+)
+                \:\s
+                \n?
+                (?P<animals>[^\:].+)"""
+                match = re.search(expr, line)
+                if match:
+                    activity = match.group("category_or_activity")
+                    animal = match.group("animals")
+                    print(f"{activity} these animals: {animal}")
+        print("We hope you enjoyed your visit and we hope to see you soon!")
+
+
+    def navigate_zoo(self, filepath, actions, summary):
+        """Asks the user questions and prompts them to visit animals at the zoo
+        
+        Args:
+            filepath (str): The path to a file that contains all the animals in the
+                zoo
+            actions (str): The path to the summary file that the method will read
+                from
+            summary (str): The path to the summary file that the method will write
+                onto
+
+        Raises:
+            ValueError if the animal the user selected is not an option in the zoo
             
-            expr = """(?xm)
-            (?P<category_or_activity>^\w+[^\:]+)
-            \:\s
-            (?P<animals>[^\:].+)"""
-    
-    def navigate_zoo(self):
-        print("r = reptile, b = bird, f = fish, m = mammal")
-        interest = input("What type of animal are you most interested in " \
-        "seeing? (r/b/f/m) ")
-        if interest == 'r':
-             print("Amphibian display: ")
-        if interest == 'b':
-            print("Bird display: ")
-        if interest == 'f':
-            print("Fish display: ")
-        if interest == 'm':
-            print("Mammal display: ")
+        Side effects:
+            Prints the animal's actions and takes the user's input on the console
+        """
+        reptiles = []
+        birds = []
+        fish = []
+        mammals = []
+        animals_seen = []
+        with open(filepath, 'r', encoding = 'utf-8') as f:
+            for line in f:
+                line = line.strip().split(', ')
+                animal = line[0]
+                type = line[1]
+                if type == 'Reptile':
+                    reptiles.append(animal)
+                if type == 'Birds':
+                    birds.append(animal)
+                if type == 'Mammals':
+                    mammals.append(animal)
+                if type == 'Fish':
+                    fish.append(animal)
+            
+        ans = "y"
+        action_dict = {}
+        while ans == "y":            
+            with open(actions, 'r', encoding = 'utf-8') as f2:
+                for line in f2:
+                    line2 = line.strip().split(', ')
+                    action_dict[line2[0]] = line2[1]
+            print("r = reptile, b = bird, f = fish, m = mammal")
+            interest = input("What type of animal are you most interested in" \
+                                " seeing? (r/b/f/m): ")
+            if interest == 'r':
+                print("Reptile display: ")
+                print(', '.join(reptiles))
+                choice = input("Select an animal to visit: ")
+                if choice in action_dict:
+                    print(action_dict[f"{choice}"])
+                
+                else:
+                    print(f"The {choice} is sleeping right now!")
+                if choice in reptiles:
+                    animals_seen.append(choice)
+                else:
+                    raise ValueError("Please select an animal in our display!")
+                ans = input("Would you like to visit another animal (y/n)? ")
+            if interest == 'b':
+                print("Bird display: ")
+                print(', '.join(birds))
+                choice = input("Select an animal to visit: ")
+                if choice in action_dict:
+                    print(action_dict[f"{choice}"])
+                else:
+                    print(f"The {choice} is sleeping right now!")
+                if choice in birds:
+                    animals_seen.append(choice)
+                else:
+                    raise ValueError("Please select an animal in our display!")
+                ans = input("Would you like to visit another animal (y/n)? ")
+            if interest == 'f':
+                print("Fish display: ")
+                print(', '.join(fish))
+                choice = input("Select an animal to visit: ")
+                if choice in action_dict:
+                    print(action_dict[f"{choice}"])
+                else:
+                    print(f"The {choice} is sleeping right now!")
+                if choice in fish:
+                    animals_seen.append(choice)
+                else:
+                    raise ValueError("Please select an animal in our display!")
+                ans = input("Would you like to visit another animal (y/n)? ")
+            if interest == 'm':
+                print("Mammal display: ")
+                print(', '.join(mammals))
+                choice = input("Select an animal to visit: ")
+                if choice in action_dict:
+                    print(action_dict[f"{choice}"])
+                else:
+                    print(f"The {choice} is sleeping right now!")
+                if choice in mammals:
+                    animals_seen.append(choice)
+                else:
+                    raise ValueError("Please select an animal in our display!")
+                ans = input("Would you like to visit another animal (y/n)? ")
+                
+        
+        with open(summary, 'w', encoding = 'utf-8') as f3:
+            f3.write(f"saw: {', '.join(animals_seen)}")
+        return animals_seen   
+
             
 class Animal: # Written by: Hanna
     """This class reads the file of animals in the zoo and organizes them into 
@@ -194,6 +288,13 @@ class Animal: # Written by: Hanna
         # print(self.zoo)
 
     def action(self, fle):
+        """Creates a copy of the dictionary and writes random interaction 
+                statements to a list, then writes statements to a file.
+        Args:
+            fle(str): a path to a file
+        Side Effects:
+            Opens and writes to a file.
+        """
         copy_zoo = self.zoo
         selection_list = []
         selection_list2 = []
@@ -319,7 +420,7 @@ class Zookeeper(Animal,Human): # Written by: G Goodwin
                 ,self.answer_dict)
         return self.score
 
-    def feed(self, desired_animal):
+    def feed(self, lst):
         """
         Creates a list of animals the user has the option to feed. Simulates a 
             Zookeeper feeding an animal of the user's choice. 
@@ -329,6 +430,7 @@ class Zookeeper(Animal,Human): # Written by: G Goodwin
         Raises: 
             ValueError: The animal the user wants to visit is not in the Zoo.
         """
+        print(f"{user.name} will now feed animals!")
         self.animal_options = []
         self.all_visited = []
         self.animal_list = self.zoo.copy()
@@ -338,25 +440,26 @@ class Zookeeper(Animal,Human): # Written by: G Goodwin
         self.options = [a.upper() for a in self.animal_options]
         # print(f"Animals in the Zoo:{self.animal_options}")
         # self.desired_animal = input(f"What animal would you like to see? ")
-        self.animal = desired_animal.upper()
-        self.all_visited.append(self.animal)
-        if self.animal in self.options: 
-            s = random.randint(0,9)
-            for n in self.animal_list: 
-                if self.animal == n["name"].upper(): 
-                    self.food = n["eat"]
-                    self.talk = n["talk"]
-            if s == 9:
-                print(f"Sorry, the {desired_animal} is sleeping" \
-                " right now.")
+        for a in lst: 
+            self.animal = a.upper()
+            self.all_visited.append(self.animal)
+            if self.animal in self.options: 
+                s = random.randint(0,9)
+                for n in self.animal_list: 
+                    if self.animal == n["name"].upper(): 
+                        self.food = n["eat"]
+                        self.talk = n["talk"]
+                if s == 9:
+                    print(f"Sorry, the {a} is sleeping" \
+                    " right now.")
+                else: 
+                    print(f"{a}'s eat {self.food}. I will feed" \
+                        " it now.")
+                    print(f"Listen to that, {a}'s make" \
+                        f" {self.talk} sound.")
             else: 
-                print(f"{desired_animal}'s eat {self.food}. I will feed" \
-                    " it now.")
-                print(f"Listen to that, {desired_animal}'s make" \
-                    f" {self.talk} sound.")
-        else: 
-            raise ValueError(f"Sorry, we don't have {desired_animal}'s" \
-                " at this zoo!")
+                raise ValueError(f"Sorry, we don't have {a}'s" \
+                    " at this zoo!")
         return self.all_visited
 
 
@@ -369,6 +472,6 @@ if __name__ == "__main__": # Written by: G
     a.action("sample.txt") 
     # u.navigate_zoo()
     # z.feed("shark") #needs a specific animal from nav zoo
-    z.feed(u.navigate_zoo())
+    z.feed(u.navigate_zoo("zoo.txt", "sample.txt", "summary.txt"))
     z.quiz(u, "quiz_questions.txt")
-    u.summary("sum.txt")
+    u.summary("summary.txt")
