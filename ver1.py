@@ -120,9 +120,9 @@ class User(Human):
         if interest == 'm':
             print("Mammal display: ")
             
-class Animal:
+class Animals:
     """This class reads the file of animals in the zoo and organizes them 
-        into a zoo dictionary.
+            into a zoo dictionary.
     Attributes:
         filepath(str): a path to a file.
     """
@@ -139,28 +139,55 @@ class Animal:
             for line in f:
                 line.rstrip("\n")
                 name, type1, eat, sleep, talk, play, fact = line.split(",")
-                x = {"name": name, "type": type1.lstrip(), "eat": eat, \
-                    "sleep":sleep, "talk": talk, "play": play, \
+                x = {"name": name.strip(" "), "type": type1.strip(" "), \
+                    "eat": eat.strip(" "), "sleep":sleep.strip(" "), \
+                        "talk": talk.strip(" "), "play": play.strip(" "), \
                         "fact": fact.rstrip("\n")}
                 self.zoo.append(x)
-        #self.action(self.zoo)
-        
-
-    def action(self, animal):
+            self.zoo = self.zoo[1:]
+        # print(self.zoo)
+        # self.action(self.zoo)
+    def action(self, fle):
+        """Creates a copy of the dictionary and writes random interaction 
+                statements to a list, then writes statements to a file.
+        Args:
+            fle(str): a path to a file
+        Side Effects:
+            Opens and writes to a file.
+        """
         copy_zoo = self.zoo
+        selection_list = []
+        selection_list2 = []
+        f = open(fle, "w", encoding="utf-8")
         for x in copy_zoo:
-            name = x["name"]
-            type1 = x["type"]
-            eat = x["eat"]
-            sleep = x["sleep"]
-            talk = x["talk"]
-            play = x["play"]
-            print("The name of the animal is " + name)
-            print("This animal is a " + type1)
-            print("This animal eats " + eat)
-            print("This animal sleeps " + sleep + " a day")
-            print("This animal says " + talk)
-            print("This animal plays by " + play)
+            for x in copy_zoo:
+                name = x["name"]
+                type1 = x["type"]
+                eat = x["eat"]
+                sleep = x["sleep"]
+                talk = x["talk"]
+                play = x["play"]
+                selection_list.append("The " + name + " says " + talk + " to ")
+                selection_list.append("The " + name + " is able to " \
+                    + play + " with ")
+                selection_list.append("The " + name + " sleeps " + sleep +\
+                    " and ")
+                selection_list.append("The " + name + " eats " + eat + " and ")
+                selection_list.append("The " + name + " is a " + type1+ " and ")
+            for x in copy_zoo:
+                name = x["name"]
+                type1 = x["type"]
+                eat = x["eat"]
+                sleep = x["sleep"]
+                talk = x["talk"]
+                play = x["play"]
+                selection_list2.append("the " + name + " says " + talk)
+                selection_list2.append("the " + name + " that plays " + play)
+                selection_list2.append("the " + name + " that sleeps " + sleep)
+                selection_list2.append("the " + name + " eats " + eat)
+                selection_list2.append("the " + name + " that is a " + type1)
+            f.writelines(random.choice(selection_list)+ \
+                random.choice(selection_list2)+"."+"\n")
 
 class Zookeeper(Human): 
     """
@@ -249,7 +276,7 @@ class Zookeeper(Human):
             raise ValueError(f"Sorry, we don't have {self.desired_animal}'s' at this zoo!")
         return self.animals_visited
 
-a = Animal("animals.txt")
+a = Animals("animals.txt")
 # cant return self.zoo from Animal class and cant iterate over Animal object
 s = Zookeeper()
 h = User()
