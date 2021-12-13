@@ -1,0 +1,20 @@
+Shark, The Shark is a Fish and the Owl that sleeps 12 hours.
+Penguin, The Penguin eats krill and the Swordfish that sleeps 8-12 hours.
+Shark, The Shark is able to hunt with the Panda says huff.
+Alligator, The Alligator is able to run with the Panda eats bamboo.
+Swordfish, The Swordfish is a Fish and the Gecko eats grasshoppers.
+Seahorse, The Seahorse eats coral and the Peacock that sleeps 5-6 hours.
+Panda, The Panda sleeps 10 hours and the Dolphin that is a Fish.
+Peacock, The Peacock sleeps 5-6 hours and the Eagle that plays tumble.
+Swordfish, The Swordfish says blub to the Burmese Python says hissssssss.
+Panda, The Panda is able to climb with the Seahorse that is a Fish.
+Hummingbird, The Hummingbird eats flower nectar and the Penguin eats krill.
+Hummingbird, The Hummingbird says chirp to the Swordfish says blub.
+Burmese Python, The Burmese Python sleeps 16 hours and the Eagle that is a Birds.
+Diamondback Terrapin, The Diamondback Terrapin says cluck to the Alligator eats insects.
+Eagle, The Eagle eats water fowl and the Giraffe that sleeps 5 hours.
+Lizard, The Lizard sleeps 9-16 hours and the Gecko that plays climb trees and jump off.
+Shark, The Shark sleeps N/A and the Hummingbird eats flower nectar.
+Swordfish, The Swordfish eats squid and the Giraffe that sleeps 5 hours.
+Eagle, The Eagle says screech to the Diamondback Terrapin that sleeps 1-10 hours.
+Owl, The Owl sleeps 12 hours and the Zebra eats grass.

@@ -16,6 +16,6 @@ Panda, Mammals, bamboo, 10 hours, huff, climb, A panda year is equivalent to thr
 Zebra, Mammals, grass, 7 hours, neigh, kick, Zebras can run up to 65km per hour.
 Shark, Fish, smaller fish, N/A, blub, hunt, Sharks do not have bones
 Dolphin, Fish, jellyfish, 8 hours, click, chase, Dolphins have two stomachs.
-Swordfish, Fish, squid, 8-12 hours, blub, fight, They have few predators, including humans, large sharks, and killer whales.
+Swordfish, Fish, squid, 8-12 hours, blub, fight, They have few predators including humans large sharks and killer whales.
 Pufferfish, Fish, clams, 8-12 hours, blub, float, One pufferfish has enough toxins to kill more than 30 people.
 Seahorse, Fish, coral, 8-12 hours, blub, swim, Seahorses prefer to swim in pairs with their tails linked together.

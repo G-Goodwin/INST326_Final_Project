@@ -1,6 +1,9 @@
 import random 
 import sys
-from argparse import ArgumentParser
+# from argparse import ArgumentParser
+import pandas as pd
+import re
+import matplotlib.pyplot as plt
 
 class Human: # Written by: Leilani and Mandy
     """
@@ -20,9 +23,7 @@ class Human: # Written by: Leilani and Mandy
         self.name = input("What is your name? ")
         self.age = int(input("How old are you? "))
         
-        # if self.age is not type(int) or self.age <= 0:
-        #     raise TypeError("Please enter a valid age.")
-        if self.age <= 0:
+        if not isinstance(self.age, int) or self.age <= 0:
             raise TypeError("Please enter a valid age.")
         
         if self.age >= 18:
@@ -31,9 +32,8 @@ class Human: # Written by: Leilani and Mandy
             self.isadult = False
         
         self.pronouns = input("What are your pronouns? ")
-        
 
-class User(Human): # Written by: Leilani and Mandy
+class User(Human):
     """
     Defines a User for the virtual Zoo.
     
@@ -47,7 +47,6 @@ class User(Human): # Written by: Leilani and Mandy
         
         Args:
             filepath (str): contains a path to a file with usernames in it.
-
         Raises:
             TypeError if the User's status is not inputted as 'y'/'n' 
             
@@ -72,14 +71,61 @@ class User(Human): # Written by: Leilani and Mandy
         else:
             raise TypeError("Enter 'y' for yes and 'n' for no.")
         
-        with open(filepath, 'a+', encoding = 'utf-8') as f:
+        with open(filepath, 'w', encoding = 'utf-8') as f:
+            f.write(self.username)
+
+    def best_time_display(self, filepath):
+        """
+        Display a bar plot of what amounts of times animal sleep, allowing User to choose
+        the best animals to see, at what times.
+        
+        Args:
+            filepath (str): a path to a file with animals, their sleep times, noises they make, and fun facts
+            
+        returns:
+            data visualization (bar plot) displaying animal's sleeping times
+        """
+        
+        expr = r"""(?xm)
+                    ^
+                    (?P<animal_name>\w+((\s\w+)?))
+                    ,
+                    (?P<animal_type>\s\w+)
+                    ,
+                    \s\w+(\s\w+)?,\s
+                    (?P<hours_sleep>\d+(-?)(\d+)?)
+                """
+
+        df = pd.DataFrame()
+        
+        hours_sleep = []
+        animal_name = []
+        
+        with open(filepath, 'r', encoding = 'utf-8') as f:
             for line in f:
                 line = line.strip()
-                if line == self.username:
-                    self.username = input("That username already exists, "\
-                        "please nter a different one: ")
+                match = re.search(expr, line)
+                if match:
+                    hours_sleep.append(match.group("hours_sleep"))
+                    animal_name.append(match.group("animal_name"))
+        
+        for index, i in enumerate(hours_sleep): 
+            if len(i) > 2:
+                if len(i) == 4 and i[2] == "1":
+                    hours_sleep[index] = i[2:]
+                elif len(i) == 5 and i[3] == "1":
+                    hours_sleep[index] = i[3:]
                 else:
-                    f.write(self.username)
+                    hours_sleep[index] = i[-1]
+        
+        for index, i in enumerate(hours_sleep):
+            hours_sleep[index] = int(i)
+        
+        df["Animal Name"] = animal_name
+        df["Animal Type"] = match.group("animal_type")
+        df["Hours of Sleep"] = hours_sleep
+        
+        return df.plot.bar(x = "Animal Name", y = "Hours of Sleep")        
                     
     def summary(self, filepath):
         """ Provides the user with a summary of their previous visit if they
@@ -315,13 +361,14 @@ class Zookeeper(Animal,Human): # Written by: G Goodwin
 
 
 if __name__ == "__main__": # Written by: G
-    a = Animal("animals.txt")
-    z = Zookeeper("animals.txt")
+    a = Animal("zoo.txt")
+    z = Zookeeper("zoo.txt")
     u = User()
-    u.account("userName.txt")
-    #data viz stuff here
-    a.action() 
-    u.navigate_zoo()
-    z.feed(#needs a specific animal from nav zoo)
+    u.account("usernames.txt")
+    u.best_time_display("zoo.txt")
+    a.action("sample.txt") 
+    # u.navigate_zoo()
+    # z.feed("shark") #needs a specific animal from nav zoo
+    z.feed(u.navigate_zoo())
     z.quiz(u, "quiz_questions.txt")
     u.summary("sum.txt")
