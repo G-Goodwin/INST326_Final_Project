@@ -121,13 +121,13 @@ class User(Human): # Written by: Leilani and Mandy
             print("Mammal display: ")
             
 class Animal: # Written by: Hanna
-    """This class reads the file of animals in the zoo and organizes them 
-        into a zoo dictionary.
+    """This class reads the file of animals in the zoo and organizes them into 
+        a zoo dictionary.
     Attributes:
         filepath(str): a path to a file.
     """
     def __init__(self, filepath):
-        """Opens a file, unpacks it by line and appends it to a list as a
+        """Opens a file, unpacks it by line and appends it to a list as a 
             dictionary.
         Args:
             filepath(str): a path to a file.
@@ -137,34 +137,49 @@ class Animal: # Written by: Hanna
         self.zoo = []
         with open(filepath, "r", encoding="utf-8") as f:
             for line in f:
-                #line.rstrip("\n")
-                line.strip()
+                line.rstrip("\n")
                 name, type1, eat, sleep, talk, play, fact = line.split(",")
-                x = {"name": name, "type": type1.strip(), "eat": eat, \
-                    "sleep":sleep, "talk": talk, "play": play, \
-                        "fact": fact.strip()}
-                # x = {"name": name, "type": type1.lstrip(), "eat": eat, \
-                #     "sleep":sleep, "talk": talk, "play": play, \
-                #         "fact": fact.rstrip("\n")}
+                x = {"name": name.strip(" "), "type": type1.strip(" "), "eat": \
+                    eat.strip(" "), "sleep":sleep.strip(" "), "talk": \
+                    talk.strip(" "), "play": play.strip(" "),"fact": \
+                    fact.rstrip("\n")}
                 self.zoo.append(x)
-        #self.action(self.zoo)
-# made new animal file - took out the commas in one of the fun facts because it was messing up the method
+            self.zoo = self.zoo[1:]
+        # print(self.zoo)
 
-    def action(self, animal):
+    def action(self, fle):
         copy_zoo = self.zoo
+        selection_list = []
+        selection_list2 = []
+        f = open(fle, "w", encoding="utf-8")
         for x in copy_zoo:
-            name = x["name"]
-            type1 = x["type"]
-            eat = x["eat"]
-            sleep = x["sleep"]
-            talk = x["talk"]
-            play = x["play"]
-            print("The name of the animal is " + name)
-            print("This animal is a " + type1)
-            print("This animal eats " + eat)
-            print("This animal sleeps " + sleep + " a day")
-            print("This animal says " + talk)
-            print("This animal plays by " + play)
+            for x in copy_zoo:
+                name = x["name"]
+                type1 = x["type"]
+                eat = x["eat"]
+                sleep = x["sleep"]
+                talk = x["talk"]
+                play = x["play"]
+                selection_list.append(name +", The " + name + " says " + talk + " to ")
+                selection_list.append(name +", The " + name + " is able to " + play + " with ")
+                selection_list.append(name +", The "  + name + " sleeps " + sleep + " and ")
+                selection_list.append(name +", The " + name + " eats " + eat + " and ")
+                selection_list.append(name +", The " + name + " is a " + type1+ " and ")
+            for x in copy_zoo:
+                name = x["name"]
+                type1 = x["type"]
+                eat = x["eat"]
+                sleep = x["sleep"]
+                talk = x["talk"]
+                play = x["play"]
+                selection_list2.append("the " + name + " says " + talk)
+                selection_list2.append("the " + name + " that plays " + play)
+                selection_list2.append("the " + name + " that sleeps " + sleep)
+                selection_list2.append("the " + name + " eats " + eat)
+                selection_list2.append("the " + name + " that is a " + type1)
+            
+            f.writelines(random.choice(selection_list)+random.choice(selection_list2)+"."+"\n")
+
 
 class Zookeeper(Animal,Human): # Written by: G Goodwin
     """
@@ -258,7 +273,7 @@ class Zookeeper(Animal,Human): # Written by: G Goodwin
                 ,self.answer_dict)
         return self.score
 
-    def feed(self):
+    def feed(self, desired_animal):
         """
         Creates a list of animals the user has the option to feed. Simulates a 
             Zookeeper feeding an animal of the user's choice. 
@@ -269,34 +284,34 @@ class Zookeeper(Animal,Human): # Written by: G Goodwin
             ValueError: The animal the user wants to visit is not in the Zoo.
         """
         self.animal_options = []
-        self.animals_visited = []
+        self.all_visited = []
         self.animal_list = self.zoo.copy()
         for a in self.animal_list: 
             self.animal_options.append(a["name"])
-        self.animal_options.remove("NAME")
+        # self.animal_options.remove("NAME")
         self.options = [a.upper() for a in self.animal_options]
-        print(f"Animals in the Zoo:{self.animal_options}")
-        self.desired_animal = input(f"What animal would you like to see? ")
-        self.animal = self.desired_animal.upper()
-        self.animals_visited.append(self.animal)
+        # print(f"Animals in the Zoo:{self.animal_options}")
+        # self.desired_animal = input(f"What animal would you like to see? ")
+        self.animal = desired_animal.upper()
+        self.all_visited.append(self.animal)
         if self.animal in self.options: 
             s = random.randint(0,9)
             for n in self.animal_list: 
                 if self.animal == n["name"].upper(): 
                     self.food = n["eat"]
                     self.talk = n["talk"]
-            if s > 8:
-                print(f"Sorry, the {self.desired_animal} is sleeping" \
+            if s == 9:
+                print(f"Sorry, the {desired_animal} is sleeping" \
                 " right now.")
             else: 
-                print(f"{self.desired_animal}'s eat {self.food}. I will feed" \
+                print(f"{desired_animal}'s eat {self.food}. I will feed" \
                     " it now.")
-                print(f"Listen to that, {self.desired_animal}'s make" \
+                print(f"Listen to that, {desired_animal}'s make" \
                     f" {self.talk} sound.")
         else: 
-            raise ValueError(f"Sorry, we don't have {self.desired_animal}'s" \
+            raise ValueError(f"Sorry, we don't have {desired_animal}'s" \
                 " at this zoo!")
-        return self.animals_visited
+        return self.all_visited
 
 # def parse_args(arglist): 
 #     """ 
@@ -327,7 +342,7 @@ if __name__ == "__main__": # Written by: G
     #a.action() 
     u.navigate_zoo()
     # duplicate kind of animal display printed text between these two methods 
-    z.feed()
+    z.feed("panda")
     z.quiz(u, "quiz_questions.txt")
     u.summary("sum.txt")
 #     args = parse_args(sys.argv[1:])
