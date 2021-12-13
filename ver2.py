@@ -338,11 +338,9 @@ if __name__ == "__main__": # Written by: G
     u = User()
     u.account("userName.txt")
     #data viz stuff here
-    # need an animal for next method
-    #a.action() 
+    a.action() 
     u.navigate_zoo()
-    # duplicate kind of animal display printed text between these two methods 
-    z.feed("panda")
+    z.feed(#needs a specific animal)
     z.quiz(u, "quiz_questions.txt")
     u.summary("sum.txt")
 #     args = parse_args(sys.argv[1:])
