@@ -148,7 +148,7 @@ class Zookeeper(Human):
                 questions[n] = q
                 cor_answers[n] = a
         unasked_questions = set(questions.values()) - set(asked_questions)
-        if user.age > 18: 
+        if user.age >= 18: 
             for i in range(5): 
                 quest = random.choice(list(unasked_questions))
                 asked_questions.append(quest)
