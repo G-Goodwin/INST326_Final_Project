@@ -1,3 +1,5 @@
+import re
+
 class Human:
     """
     Basic Human class, framework for Zookeeper and Human class
@@ -77,7 +79,7 @@ class User(Human):
                 else:
                     f.write(self.username)
                     
-    def summary(self, filepath):
+    def summary(filepath):
         """ Provides the user with a summary of their previous visit if they
         are an existing user
         
@@ -88,20 +90,20 @@ class User(Human):
         Side effects:
             Prints the user's previous experiences at the zoo onto the console
         """
-        if self.prev_user == True:
-            print("During your previous visit, you... ")
-            with open(filepath, 'r', encoding = 'utf-8') as f:
-                for line in f:
-                    line = line.strip()
-                    print(line)
-                    if 'complete' in line:
-                        print("You have completed your goal from your last \
-                            visit! Make sure to set a new goal for this visit.")
-            
-            expr = """(?xm)
-            (?P<category_or_activity>^\w+[^\:]+)
-            \:\s
-            (?P<animals>[^\:].+)"""
+        print("During your previous visit, you... ")
+        with open(filepath, 'r', encoding = 'utf-8') as f:
+            for line in f:
+                line = line.strip()
+                expr = """(?xm)
+                (?P<category_or_activity>^\w+)
+                \:\s
+                \n?
+                (?P<animals>[^\:].+)"""
+                match = re.search(expr, line)
+                if match:
+                    activity = match.group("category_or_activity")
+                    animal = match.group("animals")
+                    print(f"{activity}: {animal}")
     
    def navigate_zoo(filepath, filepath2):
         reptiles = []
