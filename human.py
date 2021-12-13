@@ -103,39 +103,72 @@ class User(Human):
             \:\s
             (?P<animals>[^\:].+)"""
     
-    # def pre_visit(self, filepath):
-    #     """ Allows the user to set a goal before their actual visit
-        
-    #     Args:
-    #         filepath (str): contains a path to a file that will document their
-    #         goals for this visit
-        
-    #     Side effects: 
-    #         Prompts the user to enter their goals for this visit and sets it to
-    #         goals, as well as writing the new goals into the text file
-    #     """
-    #     goals = input("Is there anything specific you would like to do during \
-    #         this visit? ")
-    #     with open(filepath, 'w', encoding = 'utf-8') as f:
-    #         f.write(goals)
-    # #   goals for this current visit, ie. pet a giraffe or see a shark
-    
-    def navigate_zoo(self):
-        print("r = reptile, b = bird, f = fish, m = mammal")
-        interest = input("What type of animal are you most interested in \
-             seeing? (r/b/f/m) ")
-        if interest == 'r':
-             print("Amphibian display: ")
-        if interest == 'b':
-            print("Bird display: ")
-        if interest == 'f':
-            print("Fish display: ")
-        if interest == 'm':
-            print("Mammal display: ")
+   def navigate_zoo(filepath, filepath2):
+        reptiles = []
+        birds = []
+        fish = []
+        mammals = []
+        animals_seen = []
+        with open(filepath, 'r', encoding = 'utf-8') as f:
+            for line in f:
+                line = line.strip().split(', ')
+                animal = line[0]
+                type = line[1]
+                if type == 'Reptile':
+                    reptiles.append(animal)
+                if type == 'Birds':
+                    birds.append(animal)
+                if type == 'Mammals':
+                    mammals.append(animal)
+                if type == 'Fish':
+                    fish.append(animal)
+        with open(filepath2, 'r', encoding = 'utf-8') as f2:
+            for line in f2:
+                line = line.strip.split(', ')
+                animal2 = line[0]
+                interaction = line[1]
+        ans = "y"
+        while ans == "y":            
+            print("r = reptile, b = bird, f = fish, m = mammal")
+            interest = input("What type of animal are you most interested in seeing? (r/b/f/m): ")
+            if interest == 'r':
+                print("Reptile display: ")
+                print(', '.join(reptiles))
+                choice = input("Select an animal to visit: ")
+                if choice in reptiles:
+                    animals_seen.append(choice)
+                else:
+                    raise ValueError("Please select an animal in our display!")
+                ans = input("Would you like to visit another animal (y/n)? ")
+            if interest == 'b':
+                print("Bird display: ")
+                print(', '.join(birds))
+                choice = input("Select an animal to visit: ")
+                if choice in birds:
+                    animals_seen.append(choice)
+                else:
+                    raise ValueError("Please select an animal in our display!")
+                ans = input("Would you like to visit another animal (y/n)? ")
+            if interest == 'f':
+                print("Fish display: ")
+                print(', '.join(fish))
+                choice = input("Select an animal to visit: ")
+                if choice in fish:
+                    animals_seen.append(choice)
+                else:
+                    raise ValueError("Please select an animal in our display!")
+                ans = input("Would you like to visit another animal (y/n)? ")
+            if interest == 'm':
+                print("Mammal display: ")
+                print(', '.join(mammals))
+                choice = input("Select an animal to visit: ")
+                if choice in mammals:
+                    animals_seen.append(choice)
+                else:
+                    raise ValueError("Please select an animal in our display!")
+                ans = input("Would you like to visit another animal (y/n)? ")
+        print("Thank you for visiting our zoo! Have a nice day!")
             
-
-            
-    
         
     
                     
