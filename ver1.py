@@ -1,8 +1,8 @@
 import random 
 import sys
-#from argparse import ArgumentParser
+from argparse import ArgumentParser
 
-class Human:
+class Human: # Written by: Leilani and Mandy
     """
     Basic Human class, framework for Zookeeper and Human class
     
@@ -33,7 +33,7 @@ class Human:
         self.pronouns = input("What are your pronouns? ")
         
 
-class User(Human):
+class User(Human): # Written by: Leilani and Mandy
     """
     Defines a User for the virtual Zoo.
     
@@ -79,7 +79,7 @@ class User(Human):
                     self.username = input("That username already exists, please\
                                          enter a different one: ")
                 else:
-                    f.write(f"{self.username}")
+                    f.write(self.username)
                     
     def summary(self, filepath):
         """ Provides the user with a summary of their previous visit if they
@@ -119,7 +119,7 @@ class User(Human):
         if interest == 'm':
             print("Mammal display: ")
             
-class Animal:
+class Animal: # Written by: Hanna
     """This class reads the file of animals in the zoo and organizes them 
         into a zoo dictionary.
     Attributes:
@@ -165,7 +165,7 @@ class Animal:
             print("This animal says " + talk)
             print("This animal plays by " + play)
 
-class Zookeeper(Animal,Human): 
+class Zookeeper(Animal,Human): # Written by: G Goodwin
     """
     The Zookeeper class is a subclass of the Human class and inherits 
         attributes of the Human class. It interacts with the User class 
@@ -202,31 +202,27 @@ class Zookeeper(Animal,Human):
                 q,a = line[1].strip(), line[2].strip().upper()
                 self.questions[q] = a
         self.unasked_questions = set(self.questions.keys()) - set(self.asked_questions)
-        take = input(f"{user.name} do you want to take a true/false quiz now? (Yes/No) ")
-        if take == "Yes" or take == "yes": 
-            if user.isadult == True: 
-                for i in range(5): 
-                    self.quest = random.choice(list(self.unasked_questions))
-                    self.asked_questions.append(self.quest)
-                    self.unasked_questions = set(self.questions.keys()) - set(self.asked_questions)
-                    self.answer = input(f"{self.quest}: ")
-                    self.answer_dict[quest] = self.questions.get(self.quest), self.answer.upper()
-            else: 
-                for i in range(3): 
-                    self.quest = random.choice(list(self.unasked_questions))
-                    self.asked_questions.append(self.quest)
-                    self.unasked_questions = set(self.questions.keys()) - set(self.asked_questions)
-                    self.answer = input(f"{self.quest}: ")
-                    self.answer_dict[self.quest] = self.questions.get(self.quest), self.answer.upper()
-            for cor_ans, user_ans in self.answer_dict.values(): 
-                if cor_ans == user_ans: 
-                    self.score += 1
-            print(f"{user.name} answered", self.score, "quiz questions correctly.")
-            print(f"The quiz questions and answers are displayed 'Question : (Correct Answer, User Answer)'.",self.answer_dict)
-            return self.score
-        if take == "No" or take == "no": 
-            return ("Maybe next time!")
-        
+        print(f"{user.name}, you will now take a true/false quiz!")
+        if user.isadult == True: 
+            for i in range(5): 
+                self.quest = random.choice(list(self.unasked_questions))
+                self.asked_questions.append(self.quest)
+                self.unasked_questions = set(self.questions.keys()) - set(self.asked_questions)
+                self.answer = input(f"{self.quest}: ")
+                self.answer_dict[quest] = self.questions.get(self.quest), self.answer.upper()
+        else: 
+            for i in range(3): 
+                self.quest = random.choice(list(self.unasked_questions))
+                self.asked_questions.append(self.quest)
+                self.unasked_questions = set(self.questions.keys()) - set(self.asked_questions)
+                self.answer = input(f"{self.quest}: ")
+                self.answer_dict[self.quest] = self.questions.get(self.quest), self.answer.upper()
+        for cor_ans, user_ans in self.answer_dict.values(): 
+            if cor_ans == user_ans: 
+                self.score += 1
+        print(f"{user.name} answered", self.score, "quiz questions correctly.")
+        print(f"The quiz questions and answers are displayed 'Question : (Correct Answer, User Answer)'.",self.answer_dict)
+        return self.score
 
     def feed(self):
         self.animal_options = []
@@ -255,16 +251,6 @@ class Zookeeper(Animal,Human):
             raise ValueError(f"Sorry, we don't have {self.desired_animal}'s' at this zoo!")
         return self.animals_visited
 
-
-# z = Zookeeper.quiz(s,h, "quiz_questions.txt")
-
-# def main():  
-#     a = Animal("animals.txt")
-#     z = Zookeeper("animals.txt")
-#     u = User()
-    #z = Zookeeper.feed(s)
-
-
 # def parse_args(arglist): 
 #     """ 
 #     Parse command-line arguments.
@@ -284,28 +270,18 @@ class Zookeeper(Animal,Human):
 #                         " book data (title, author, and call number)") 
 #     return parser.parse_args(arglist)
 
-if __name__ == "__main__":
+if __name__ == "__main__": # Written by: G
     a = Animal("animals.txt")
     z = Zookeeper("animals.txt")
     u = User()
     u.account("userName.txt")
     #data viz stuff 
-    # need an animal
+    # need an animal for next method
     #a.action() 
     u.navigate_zoo()
     # duplicate kind of animal display printed text between these two methods 
     z.feed()
     z.quiz(u, "quiz_questions.txt")
     u.summary("sum.txt")
-
-# User - make an account
-# Data visualization
-# Summary
-# Animal innit
-# Animal interaction
-# Navigate
-# Feed
-# quiz
-
 #     args = parse_args(sys.argv[1:])
 #     main(args.filepath)
