@@ -268,7 +268,7 @@ class Animal: # Written by: Hanna
     Attributes:
         filepath(str): a path to a file.
     """
-    def __init__(self, filepath):
+    def __init__(self, filepath): # Written by: Hanna
         """Opens a file, unpacks it by line and appends it to a list as a 
             dictionary.
         Args:
@@ -288,7 +288,7 @@ class Animal: # Written by: Hanna
                 self.zoo.append(x)
             self.zoo = self.zoo[1:]
 
-    def action(self, fle):
+    def action(self, fle): # Written by: Hanna
         """Creates a copy of the dictionary and writes random interaction 
                 statements to a list, then writes statements to a file.
         Args:
@@ -357,8 +357,8 @@ class Zookeeper(Animal,Human): # Written by: G Goodwin
         answer (str): The user's answer to the question.  
 
         animal_options (list): A list of all of the animals in the Zoo. 
-        animals_visited (list): A list of all of the animals fed by the 
-            Zookeeper. The user has "visited" any animal the Zookeeper 
+        all_visited (list): A list of all of the animals fed by the 
+            Zookeeper. The user has "visited" all the animals the Zookeeper 
             interacts with. 
         animal_list (list of dictionaries): A list of dictionaries containing 
             information about animals in the Zoo. 
@@ -371,7 +371,7 @@ class Zookeeper(Animal,Human): # Written by: G Goodwin
         talk (str): The sound the animal makes from the file of animal 
             information. 
     """
-    def quiz(self, user, file): 
+    def quiz(self, user, file): # Written by: G
         """
         Reads a file of quiz questions and answers. Prints a number (determined 
             by wheter or not the user is an adult) of questions about animals 
@@ -427,10 +427,13 @@ class Zookeeper(Animal,Human): # Written by: G Goodwin
                 ,self.answer_dict)
         return self.score
 
-    def feed(self, lst):
+    def feed(self, lst): # Written by: G
         """
         Creates a list of animals the user has the option to feed. Simulates a 
             Zookeeper feeding an animal of the user's choice. 
+        Args: 
+            lst (list): A list of animals the user visited in the Zoo in
+                navigate_zoo method. 
         Returns:
             animals_visited (list): A list of all of the animals the user 
                 visited. Equivalent to the animals the Zookeeper fed. 
