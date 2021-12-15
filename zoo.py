@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 class Human: # Written by: Leilani and Mandy
     """
-    Basic Human class, framework for Zookeeper and Human class
+    Establishes human characteristics (Framework for Zookeeper and User class)
     
     Attributes:
         name (str): Human's name
@@ -34,7 +34,7 @@ class Human: # Written by: Leilani and Mandy
 
 class User(Human): # Written by: Leilani and Mandy
     """
-    Defines a User for the virtual Zoo.
+    Simulates a person visiting the Zoo.  
     
     Attributes:
         prev_user (boolean): whether the User is new to the Zoo or not.
@@ -74,8 +74,7 @@ class User(Human): # Written by: Leilani and Mandy
             f.write(self.username)
 
     def best_time_display(self, filepath): # Written by: Leilani 
-        """
-        Display a bar plot of what amounts of times animal sleep, allowing 
+        """ Displays a bar plot of what amounts of time animals sleep. Allows
             User to choose the best animals to see, at what times.
         
         Args:
@@ -266,7 +265,8 @@ class Animal: # Written by: Hanna
     """This class reads the file of animals in the zoo and organizes them into 
         a zoo dictionary.
     Attributes:
-        filepath(str): a path to a file.
+        zoo (list of dictionaries): List of dictionaries of all of the animals
+            in the zoo and relevant information about them.
     """
     def __init__(self, filepath): # Written by: Hanna
         """Opens a file, unpacks it by line and appends it to a list as a 
